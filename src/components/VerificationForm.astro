@@ -85,6 +85,8 @@
 </style>
 
 <script>
+import type { isAstroComponentFactory } from "astro/dist/runtime/server/render/astro"
+
   const response = await fetch('https://nostr.industries/.well-known/nostr.json')
   const data = await response.json()
   const users = data.names
@@ -113,12 +115,13 @@
 
     const hasUsername = username.length > 0
     const hasPubkey = pubkey.length > 0
+    const hexKeyRegex = /[0-9A-Fa-f]{64}/g
 
     resetForm()
 
     let hasError = false
 
-    if(username) {
+    if(hasUsername) {
       if(error && users[username]) {
         error.innerHTML = 'Sorry, this username is already taken.'
         hasError = true
@@ -127,6 +130,14 @@
       if(error && Object.values(users).includes(pubkey)) {
         error.innerHTML = 'Sorry, this pubkey is already taken.'
         hasError = true
+      }
+    }
+
+    if(hasPubkey) {
+      const pubkeyIsHex = pubkey.match(hexKeyRegex)
+      if(error && !pubkeyIsHex) {
+        hasError = true
+        error.innerHTML = 'Please enter the HEX version of your public key.'
       }
     }
 
