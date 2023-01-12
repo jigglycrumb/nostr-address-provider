@@ -107,18 +107,20 @@
   }
 
   const button = document.getElementById('verify-button')
+
   button?.addEventListener('click', () => {
     const username = (document.getElementById('username')  as HTMLInputElement).value ?? ''
     const pubkey = (document.getElementById('pubkey') as HTMLInputElement).value ?? ''
 
     const hasUsername = username.length > 0
     const hasPubkey = pubkey.length > 0
+    const hexKeyRegex = /[0-9A-Fa-f]{64}/g
 
     resetForm()
 
     let hasError = false
 
-    if(username) {
+    if(hasUsername) {
       if(error && users[username]) {
         error.innerHTML = 'Sorry, this username is already taken.'
         hasError = true
@@ -127,6 +129,14 @@
       if(error && Object.values(users).includes(pubkey)) {
         error.innerHTML = 'Sorry, this pubkey is already taken.'
         hasError = true
+      }
+    }
+
+    if(hasPubkey) {
+      const pubkeyIsHex = pubkey.match(hexKeyRegex)
+      if(error && !pubkeyIsHex) {
+        hasError = true
+        error.innerHTML = 'Please enter the HEX version of your public key.'
       }
     }
 

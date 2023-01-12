@@ -6,7 +6,7 @@
 		<link rel="icon" type="image/png" href="/favicon.png">
 		<meta name="generator" content="Astro v1.9.1">
 		<title>Welcome to nostr.industries</title>
-	<link rel="stylesheet" href="/assets/index.70327d6c.css" /><script type="module">const y=await fetch("https://nostr.industries/.well-known/nostr.json"),f=await y.json(),o=f.names,c=document.getElementById("user-count"),n=document.querySelector(".verify-result"),e=document.getElementById("verify-error"),s=document.getElementById("verify-success");function l(){n&&(n.style.display="none"),e&&(e.innerHTML=""),s&&(s.innerHTML="")}c&&(c.innerHTML=`Total users verified: ${Object.keys(o).length} \u{1F389}`);const m=document.getElementById("verify-button");m?.addEventListener("click",()=>{const t=document.getElementById("username").value??"",r=document.getElementById("pubkey").value??"",u=t.length>0,a=r.length>0;l();let i=!1;if(t&&(e&&o[t]&&(e.innerHTML="Sorry, this username is already taken.",i=!0),e&&Object.values(o).includes(r)&&(e.innerHTML="Sorry, this pubkey is already taken.",i=!0)),!i&&u&&a){const d="https://maker.ifttt.com/trigger/nostr_industries_verify/with/key/dSscp_OKcfnlqc4jitN7yc"+`?value1=${t}&value2=${r}`;fetch(d,{mode:"no-cors"}),s&&(l(),s.innerHTML=`Your request has been submitted.<br />Verification is currently a manual process and might take a while.<br />It is done when your name & pubkey show up <a href="https://nostr.industries/.well-known/nostr.json" target="_blank">here</a>.<br />You can then use <strong>${t}@nostr.industries</strong> as your NIP-05 identifier.`)}else e&&!(u&&a)&&(e.innerHTML="Please enter your desired username and pubkey!");n&&(n.style.display="grid")});
+	<link rel="stylesheet" href="/assets/index.9ed9dfe5.css" /><script type="module">const m=await fetch("https://nostr.industries/.well-known/nostr.json"),h=await m.json(),a=h.names,l=document.getElementById("user-count"),r=document.querySelector(".verify-result"),e=document.getElementById("verify-error"),i=document.getElementById("verify-success");function d(){r&&(r.style.display="none"),e&&(e.innerHTML=""),i&&(i.innerHTML="")}l&&(l.innerHTML=`Total users verified: ${Object.keys(a).length} \u{1F389}`);const b=document.getElementById("verify-button");b?.addEventListener("click",()=>{const t=document.getElementById("username").value??"",n=document.getElementById("pubkey").value??"",o=t.length>0,u=n.length>0,y=/[0-9A-Fa-f]{64}/g;d();let s=!1;if(o&&(e&&a[t]&&(e.innerHTML="Sorry, this username is already taken.",s=!0),e&&Object.values(a).includes(n)&&(e.innerHTML="Sorry, this pubkey is already taken.",s=!0)),u){const c=n.match(y);e&&!c&&(s=!0,e.innerHTML="Please enter the HEX version of your public key.")}if(!s&&o&&u){const f="https://maker.ifttt.com/trigger/nostr_industries_verify/with/key/dSscp_OKcfnlqc4jitN7yc"+`?value1=${t}&value2=${n}`;fetch(f,{mode:"no-cors"}),i&&(d(),i.innerHTML=`Your request has been submitted.<br />Verification is currently a manual process and might take a while.<br />It is done when your name & pubkey show up <a href="https://nostr.industries/.well-known/nostr.json" target="_blank">here</a>.<br />You can then use <strong>${t}@nostr.industries</strong> as your NIP-05 identifier.`)}else e&&!(o&&u)&&(e.innerHTML="Please enter your desired username and pubkey!");r&&(r.style.display="grid")});
 </script></head>
 	<body>
 		<main class="astro-2GC4QHIV">
@@ -16,25 +16,25 @@
 			Verify your Nostr username, for free.
 		</h3>
 
-		<form class="verify-form astro-GGC5NU4F">
-  <div class="astro-GGC5NU4F">
-    <input type="text" placeholder="your-name" id="username" class="astro-GGC5NU4F">
-    <label for="username" class="astro-GGC5NU4F"><strong class="astro-GGC5NU4F">@nostr.industries</strong></label>
+		<form class="verify-form astro-D2VRWAZV">
+  <div class="astro-D2VRWAZV">
+    <input type="text" placeholder="your-name" id="username" class="astro-D2VRWAZV">
+    <label for="username" class="astro-D2VRWAZV"><strong class="astro-D2VRWAZV">@nostr.industries</strong></label>
   </div>
 
-  <div class="astro-GGC5NU4F">
-    <input type="text" placeholder="your public key in HEX format" id="pubkey" class="astro-GGC5NU4F">
-    <button id="verify-button" type="button" class="astro-GGC5NU4F">verify</button>
+  <div class="astro-D2VRWAZV">
+    <input type="text" placeholder="your public key in HEX format" id="pubkey" class="astro-D2VRWAZV">
+    <button id="verify-button" type="button" class="astro-D2VRWAZV">verify</button>
   </div>
 </form>
 
-<div class="verify-result astro-GGC5NU4F">
-  <div id="verify-error" class="astro-GGC5NU4F"></div>
-  <div id="verify-success" class="astro-GGC5NU4F"></div>
+<div class="verify-result astro-D2VRWAZV">
+  <div id="verify-error" class="astro-D2VRWAZV"></div>
+  <div id="verify-success" class="astro-D2VRWAZV"></div>
 </div>
 
-<section class="users astro-GGC5NU4F">
-  <strong id="user-count" class="astro-GGC5NU4F">loading…</strong>
+<section class="users astro-D2VRWAZV">
+  <strong id="user-count" class="astro-D2VRWAZV">loading…</strong>
 </section>
 
 
