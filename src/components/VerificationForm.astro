@@ -5,7 +5,7 @@
   </div>
 
   <div>
-    <input type="text" placeholder="your public key in HEX format" id="pubkey" />
+    <input type="text" placeholder="your public key in HEX format*" id="pubkey" />
     <button id="verify-button" type="button">verify</button>
   </div>
 </form>
@@ -17,6 +17,13 @@
 
 <section class="users">
   <strong id="user-count">loading…</strong>
+</section>
+
+<section>
+  <sub>
+    *Hint: If your public key starts with "npub", you'll have to convert it to hex first.<br />
+    Head over to the <a href="https://damus.io/key" target="_new">damus key converter</a> to do so.
+  </sub>
 </section>
 
 <style>
@@ -81,6 +88,7 @@
 
   section.users {
     display: block;
+    margin-bottom: 1.5rem;
   }
 </style>
 

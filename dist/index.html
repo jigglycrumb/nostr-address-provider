@@ -6,7 +6,7 @@
 		<link rel="icon" type="image/png" href="/favicon.png">
 		<meta name="generator" content="Astro v1.9.1">
 		<title>Welcome to nostr.industries</title>
-	<link rel="stylesheet" href="/assets/index.9ed9dfe5.css" /><script type="module">const m=await fetch("https://nostr.industries/.well-known/nostr.json"),h=await m.json(),a=h.names,l=document.getElementById("user-count"),r=document.querySelector(".verify-result"),e=document.getElementById("verify-error"),i=document.getElementById("verify-success");function d(){r&&(r.style.display="none"),e&&(e.innerHTML=""),i&&(i.innerHTML="")}l&&(l.innerHTML=`Total users verified: ${Object.keys(a).length} \u{1F389}`);const b=document.getElementById("verify-button");b?.addEventListener("click",()=>{const t=document.getElementById("username").value??"",n=document.getElementById("pubkey").value??"",o=t.length>0,u=n.length>0,y=/[0-9A-Fa-f]{64}/g;d();let s=!1;if(o&&(e&&a[t]&&(e.innerHTML="Sorry, this username is already taken.",s=!0),e&&Object.values(a).includes(n)&&(e.innerHTML="Sorry, this pubkey is already taken.",s=!0)),u){const c=n.match(y);e&&!c&&(s=!0,e.innerHTML="Please enter the HEX version of your public key.")}if(!s&&o&&u){const f="https://maker.ifttt.com/trigger/nostr_industries_verify/with/key/dSscp_OKcfnlqc4jitN7yc"+`?value1=${t}&value2=${n}`;fetch(f,{mode:"no-cors"}),i&&(d(),i.innerHTML=`Your request has been submitted.<br />Verification is currently a manual process and might take a while.<br />It is done when your name & pubkey show up <a href="https://nostr.industries/.well-known/nostr.json" target="_blank">here</a>.<br />You can then use <strong>${t}@nostr.industries</strong> as your NIP-05 identifier.`)}else e&&!(o&&u)&&(e.innerHTML="Please enter your desired username and pubkey!");r&&(r.style.display="grid")});
+	<link rel="stylesheet" href="/assets/index.89670d14.css" /><script type="module">const m=await fetch("https://nostr.industries/.well-known/nostr.json"),h=await m.json(),a=h.names,l=document.getElementById("user-count"),r=document.querySelector(".verify-result"),e=document.getElementById("verify-error"),i=document.getElementById("verify-success");function d(){r&&(r.style.display="none"),e&&(e.innerHTML=""),i&&(i.innerHTML="")}l&&(l.innerHTML=`Total users verified: ${Object.keys(a).length} \u{1F389}`);const b=document.getElementById("verify-button");b?.addEventListener("click",()=>{const t=document.getElementById("username").value??"",n=document.getElementById("pubkey").value??"",o=t.length>0,u=n.length>0,y=/[0-9A-Fa-f]{64}/g;d();let s=!1;if(o&&(e&&a[t]&&(e.innerHTML="Sorry, this username is already taken.",s=!0),e&&Object.values(a).includes(n)&&(e.innerHTML="Sorry, this pubkey is already taken.",s=!0)),u){const c=n.match(y);e&&!c&&(s=!0,e.innerHTML="Please enter the HEX version of your public key.")}if(!s&&o&&u){const f="https://maker.ifttt.com/trigger/nostr_industries_verify/with/key/dSscp_OKcfnlqc4jitN7yc"+`?value1=${t}&value2=${n}`;fetch(f,{mode:"no-cors"}),i&&(d(),i.innerHTML=`Your request has been submitted.<br />Verification is currently a manual process and might take a while.<br />It is done when your name & pubkey show up <a href="https://nostr.industries/.well-known/nostr.json" target="_blank">here</a>.<br />You can then use <strong>${t}@nostr.industries</strong> as your NIP-05 identifier.`)}else e&&!(o&&u)&&(e.innerHTML="Please enter your desired username and pubkey!");r&&(r.style.display="grid")});
 </script></head>
 	<body>
 		<main class="astro-2GC4QHIV">
@@ -16,41 +16,48 @@
 			Verify your Nostr username, for free.
 		</h3>
 
-		<form class="verify-form astro-D2VRWAZV">
-  <div class="astro-D2VRWAZV">
-    <input type="text" placeholder="your-name" id="username" class="astro-D2VRWAZV">
-    <label for="username" class="astro-D2VRWAZV"><strong class="astro-D2VRWAZV">@nostr.industries</strong></label>
+		<form class="verify-form astro-DXBIK3A3">
+  <div class="astro-DXBIK3A3">
+    <input type="text" placeholder="your-name" id="username" class="astro-DXBIK3A3">
+    <label for="username" class="astro-DXBIK3A3"><strong class="astro-DXBIK3A3">@nostr.industries</strong></label>
   </div>
 
-  <div class="astro-D2VRWAZV">
-    <input type="text" placeholder="your public key in HEX format" id="pubkey" class="astro-D2VRWAZV">
-    <button id="verify-button" type="button" class="astro-D2VRWAZV">verify</button>
+  <div class="astro-DXBIK3A3">
+    <input type="text" placeholder="your public key in HEX format*" id="pubkey" class="astro-DXBIK3A3">
+    <button id="verify-button" type="button" class="astro-DXBIK3A3">verify</button>
   </div>
 </form>
 
-<div class="verify-result astro-D2VRWAZV">
-  <div id="verify-error" class="astro-D2VRWAZV"></div>
-  <div id="verify-success" class="astro-D2VRWAZV"></div>
+<div class="verify-result astro-DXBIK3A3">
+  <div id="verify-error" class="astro-DXBIK3A3"></div>
+  <div id="verify-success" class="astro-DXBIK3A3"></div>
 </div>
 
-<section class="users astro-D2VRWAZV">
-  <strong id="user-count" class="astro-D2VRWAZV">loading…</strong>
+<section class="users astro-DXBIK3A3">
+  <strong id="user-count" class="astro-DXBIK3A3">loading…</strong>
+</section>
+
+<section class="astro-DXBIK3A3">
+  <sub class="astro-DXBIK3A3">
+    *Hint: If your public key starts with "npub", you'll have to convert it to hex first.<br class="astro-DXBIK3A3">
+    Head over to the <a href="https://damus.io/key" target="_new" class="astro-DXBIK3A3">damus key converter</a> to do so.
+  </sub>
 </section>
 
 
 
 
 
-		<section class="lightning astro-VMTNMTTU">
-  <p class="astro-VMTNMTTU">
+		<section class="lightning astro-DVOL7RYT">
+  <p class="astro-DVOL7RYT">
     This service is free, but it costs USD $4/month to operate and (unless it can be automated) manually adding users takes time.
-    <br class="astro-VMTNMTTU"><br class="astro-VMTNMTTU">
-    If you like this service, please consider a small lightning donation to keep it up:
+    <br class="astro-DVOL7RYT"><br class="astro-DVOL7RYT">
+    If you like this service, please consider a small lightning ⚡ donation to keep it up:
   </p>
 
-  <img src="images/ln-donation-qr.png" alt="lightning donation qr code" class="astro-VMTNMTTU">
+  <img src="images/ln-donation-qr.png" alt="lightning donation qr code" class="astro-DVOL7RYT">
 
-  <code class="astro-VMTNMTTU">
+  <code class="astro-DVOL7RYT">
     LNURL1DP68GURN8GHJ7MR9VAJKUEPWD3HXY6T5WVHXXMMD9AKXUATJD3CZ7JMPVDV9YCC4FVREX
   </code>
 </section>
