@@ -85,8 +85,6 @@
 </style>
 
 <script>
-import type { isAstroComponentFactory } from "astro/dist/runtime/server/render/astro"
-
   const response = await fetch('https://nostr.industries/.well-known/nostr.json')
   const data = await response.json()
   const users = data.names
@@ -109,6 +107,7 @@ import type { isAstroComponentFactory } from "astro/dist/runtime/server/render/a
   }
 
   const button = document.getElementById('verify-button')
+
   button?.addEventListener('click', () => {
     const username = (document.getElementById('username')  as HTMLInputElement).value ?? ''
     const pubkey = (document.getElementById('pubkey') as HTMLInputElement).value ?? ''
