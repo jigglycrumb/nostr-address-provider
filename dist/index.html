@@ -6,15 +6,22 @@
 		<link rel="icon" type="image/png" href="/favicon.png">
 		<meta name="generator" content="Astro v1.9.1">
 		<title>Welcome to nostr.industries</title>
-	<link rel="stylesheet" href="/assets/index.89670d14.css" /><script type="module">const m=await fetch("https://nostr.industries/.well-known/nostr.json"),h=await m.json(),a=h.names,l=document.getElementById("user-count"),r=document.querySelector(".verify-result"),e=document.getElementById("verify-error"),i=document.getElementById("verify-success");function d(){r&&(r.style.display="none"),e&&(e.innerHTML=""),i&&(i.innerHTML="")}l&&(l.innerHTML=`Total users verified: ${Object.keys(a).length} \u{1F389}`);const b=document.getElementById("verify-button");b?.addEventListener("click",()=>{const t=document.getElementById("username").value??"",n=document.getElementById("pubkey").value??"",o=t.length>0,u=n.length>0,y=/[0-9A-Fa-f]{64}/g;d();let s=!1;if(o&&(e&&a[t]&&(e.innerHTML="Sorry, this username is already taken.",s=!0),e&&Object.values(a).includes(n)&&(e.innerHTML="Sorry, this pubkey is already taken.",s=!0)),u){const c=n.match(y);e&&!c&&(s=!0,e.innerHTML="Please enter the HEX version of your public key.")}if(!s&&o&&u){const f="https://maker.ifttt.com/trigger/nostr_industries_verify/with/key/dSscp_OKcfnlqc4jitN7yc"+`?value1=${t}&value2=${n}`;fetch(f,{mode:"no-cors"}),i&&(d(),i.innerHTML=`Your request has been submitted.<br />Verification is currently a manual process and might take a while.<br />It is done when your name & pubkey show up <a href="https://nostr.industries/.well-known/nostr.json" target="_blank">here</a>.<br />You can then use <strong>${t}@nostr.industries</strong> as your NIP-05 identifier.`)}else e&&!(o&&u)&&(e.innerHTML="Please enter your desired username and pubkey!");r&&(r.style.display="grid")});
+	<link rel="stylesheet" href="/assets/index.e01ee43c.css" /><script type="module">const m=await fetch("https://nostr.industries/.well-known/nostr.json"),h=await m.json(),a=h.names,l=document.getElementById("user-count"),r=document.querySelector(".verify-result"),e=document.getElementById("verify-error"),i=document.getElementById("verify-success");function d(){r&&(r.style.display="none"),e&&(e.innerHTML=""),i&&(i.innerHTML="")}l&&(l.innerHTML=`Total users verified: ${Object.keys(a).length} \u{1F389}`);const b=document.getElementById("verify-button");b?.addEventListener("click",()=>{const t=document.getElementById("username").value??"",n=document.getElementById("pubkey").value??"",o=t.length>0,u=n.length>0,y=/[0-9A-Fa-f]{64}/g;d();let s=!1;if(o&&(e&&a[t]&&(e.innerHTML="Sorry, this username is already taken.",s=!0),e&&Object.values(a).includes(n)&&(e.innerHTML="Sorry, this pubkey is already taken.",s=!0)),u){const c=n.match(y);e&&!c&&(s=!0,e.innerHTML="Please enter the HEX version of your public key.")}if(!s&&o&&u){const f="https://maker.ifttt.com/trigger/nostr_industries_verify/with/key/dSscp_OKcfnlqc4jitN7yc"+`?value1=${t}&value2=${n}`;fetch(f,{mode:"no-cors"}),i&&(d(),i.innerHTML=`Your request has been submitted.<br />Verification is currently a manual process and might take a while.<br />It is done when your name & pubkey show up <a href="https://nostr.industries/.well-known/nostr.json" target="_blank">here</a>.<br />You can then use <strong>${t}@nostr.industries</strong> as your NIP-05 identifier.`)}else e&&!(o&&u)&&(e.innerHTML="Please enter your desired username and pubkey!");r&&(r.style.display="grid")});
 </script></head>
 	<body>
-		<main class="astro-2GC4QHIV">
-		<h1 class="astro-2GC4QHIV">Welcome to <span class="text-gradient astro-2GC4QHIV">nostr.industries</span></h1>
+		<main class="astro-5E34O4I4">
+		<header class="astro-LO4FVQR3">
+  <div class="astro-LO4FVQR3">
+    <h1 class="astro-LO4FVQR3">Welcome to <span class="text-gradient astro-LO4FVQR3">nostr.industries</span></h1>
 
-		<h3 class="text-gradient astro-2GC4QHIV">
-			Verify your Nostr username, for free.
-		</h3>
+    <h3 class="text-gradient astro-LO4FVQR3">
+      Verify your Nostr username, for free.
+    </h3>
+  </div>
+
+  <img src="favicon.png" alt="verification badge" class="astro-LO4FVQR3">
+</header>
+
 
 		<form class="verify-form astro-DXBIK3A3">
   <div class="astro-DXBIK3A3">
@@ -43,7 +50,6 @@
     Head over to the <a href="https://damus.io/key" target="_new" class="astro-DXBIK3A3">damus key converter</a> to do so.
   </sub>
 </section>
-
 
 
 
