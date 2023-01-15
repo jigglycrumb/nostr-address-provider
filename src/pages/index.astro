@@ -1,19 +1,14 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import VerificationForm from '../components/VerificationForm.astro';
 import Donation from '../components/Donation.astro';
+import VerificationForm from '../components/VerificationForm.astro';
+import Welcome from '../components/Welcome.astro';
 ---
 
 <Layout title="Welcome to nostr.industries">
 	<main>
-		<h1>Welcome to <span class="text-gradient">nostr.industries</span></h1>
-
-		<h3 class="text-gradient">
-			Verify your Nostr username, for free.
-		</h3>
-
+		<Welcome />
 		<VerificationForm />
-
 		<Donation />
 	</main>
 </Layout>
@@ -23,19 +18,5 @@ import Donation from '../components/Donation.astro';
 		margin: auto;
 		padding: 1.5rem;
 		max-width: 60ch;
-	}
-
-	h1 {
-		font-size: 3rem;
-		font-weight: 800;
-		margin: 0;
-	}
-
-	.text-gradient {
-		background-image: var(--accent-gradient);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		background-size: 400%;
-		background-position: 0%;
 	}
 </style>

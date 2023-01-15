@@ -1,0 +1,40 @@
+<header>
+  <div>
+    <h1>Welcome to <span class="text-gradient">nostr.industries</span></h1>
+
+    <h3 class="text-gradient">
+      Verify your Nostr username, for free.
+    </h3>
+  </div>
+
+  <img src="favicon.png" alt="verification badge" />
+</header>
+
+<style>
+	:root {
+		--badge-size: 112px;
+	}
+
+  header {
+    display: grid;
+    grid-template-columns: 1fr var(--badge-size);
+  }
+
+	h1 {
+		font-size: 3rem;
+		font-weight: 800;
+		margin: 0;
+	}
+
+  img {
+    max-width: var(--badge-size);
+  }
+
+	.text-gradient {
+		background-image: var(--accent-gradient);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-size: 400%;
+		background-position: 0%;
+	}
+</style>
