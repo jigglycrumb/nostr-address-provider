@@ -12,7 +12,19 @@
 
 <div class="verify-result">
   <div id="verify-error"></div>
-  <div id="verify-success"></div>
+  <div id="verify-success">
+    <strong>Please read this carefully</strong><br />
+    Your request has been submitted, thank you!<br />
+    Verification is currently a manual process and might take a while.<br />
+    You will receive a notification on nostr when it is done.<br /><br />
+    After receiving the notification:<br />
+    <ol>
+    <li>Edit your nostr profile</li>
+    <li>Enter <strong id="success-username">username@nostr.industries</strong> into the NIP-05 identifier field</li>
+    <li>Save your profile</li>
+    </ol>
+    Congratulations, you are verified! <img src="favicon.png" class="mini-badge" alt="verification badge" />
+  </div>
 </div>
 
 <section class="users">
@@ -47,12 +59,14 @@
     margin: -1rem 0 2rem 0;
   }
 
-  #verify-error {
-    color: #ff6666;
+  .mini-badge {
+    position: relative;
+    top: 4px;
+    width: 20px;
   }
 
-  #verify-success {
-    color: #388a38;
+  #verify-error {
+    color: #ff6666;
   }
 
   .verify-form > div {
@@ -101,13 +115,14 @@
   const result = (document.querySelector('.verify-result') as HTMLElement)
   const error = document.getElementById('verify-error')
   const success = document.getElementById('verify-success')
+  const successUsername = document.getElementById('success-username')
 
   function resetForm() {
     if(result) {
       result.style.display = 'none'
     }
     if(error) error.innerHTML = ''
-    if(success) success.innerHTML = ''
+    if(success) success.style.display = 'none'
   }
 
   if(userCount) {
@@ -153,16 +168,14 @@
       const iftttUrl = `https://maker.ifttt.com/trigger/${iftttEvent}/with/key/dSscp_OKcfnlqc4jitN7yc`
       const dataUrl = iftttUrl + `?value1=${username}&value2=${pubkey}`
 
-      fetch(dataUrl, {
-        mode: "no-cors",
-      })
+      // fetch(dataUrl, {
+      //   mode: "no-cors",
+      // })
 
-      if(success) {
+      if(success && successUsername) {
         resetForm()
-        success.innerHTML = 'Your request has been submitted.<br />' +
-        'Verification is currently a manual process and might take a while.<br />' +
-        'It is done when your name & pubkey show up <a href="https://nostr.industries/.well-known/nostr.json" target="_blank">here</a>.<br />' +
-        `You can then use <strong>${username}@nostr.industries</strong> as your NIP-05 identifier.`
+        successUsername.innerHTML = `${username}@nostr.industries`
+        success.style.display = 'block'
       }
     }
     else if(error && !(hasUsername && hasPubkey)) {
