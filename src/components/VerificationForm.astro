@@ -168,9 +168,9 @@
       const iftttUrl = `https://maker.ifttt.com/trigger/${iftttEvent}/with/key/dSscp_OKcfnlqc4jitN7yc`
       const dataUrl = iftttUrl + `?value1=${username}&value2=${pubkey}`
 
-      // fetch(dataUrl, {
-      //   mode: "no-cors",
-      // })
+      fetch(dataUrl, {
+        mode: "no-cors",
+      })
 
       if(success && successUsername) {
         resetForm()

@@ -6,7 +6,7 @@
 		<link rel="icon" type="image/png" href="/favicon.png">
 		<meta name="generator" content="Astro v1.9.1">
 		<title>Welcome to nostr.industries</title>
-	<link rel="stylesheet" href="/assets/index.9e261728.css" /><script type="module">const f=await fetch("https://nostr.industries/.well-known/nostr.json"),g=await f.json(),c=g.names,a=document.getElementById("user-count"),t=document.querySelector(".verify-result"),e=document.getElementById("verify-error"),s=document.getElementById("verify-success"),l=document.getElementById("success-username");function y(){t&&(t.style.display="none"),e&&(e.innerHTML=""),s&&(s.style.display="none")}a&&(a.innerHTML=`Total users verified: ${Object.keys(c).length} \u{1F389}`);const h=document.getElementById("verify-button");h?.addEventListener("click",()=>{const r=document.getElementById("username").value??"",o=document.getElementById("pubkey").value??"",i=r.length>0,u=o.length>0,d=/[0-9A-Fa-f]{64}/g;y();let n=!1;if(i&&(e&&c[r]&&(e.innerHTML="Sorry, this username is already taken.",n=!0),e&&Object.values(c).includes(o)&&(e.innerHTML="Sorry, this pubkey is already taken.",n=!0)),u){const m=o.match(d);e&&!m&&(n=!0,e.innerHTML="Please enter the HEX version of your public key.")}!n&&i&&u?s&&l&&(y(),l.innerHTML=`${r}@nostr.industries`,s.style.display="block"):e&&!(i&&u)&&(e.innerHTML="Please enter your desired username and pubkey!"),t&&(t.style.display="grid")});
+	<link rel="stylesheet" href="/assets/index.484c24d2.css" /><script type="module">const h=await fetch("https://nostr.industries/.well-known/nostr.json"),g=await h.json(),u=g.names,a=document.getElementById("user-count"),r=document.querySelector(".verify-result"),e=document.getElementById("verify-error"),i=document.getElementById("verify-success"),y=document.getElementById("success-username");function d(){r&&(r.style.display="none"),e&&(e.innerHTML=""),i&&(i.style.display="none")}a&&(a.innerHTML=`Total users verified: ${Object.keys(u).length} \u{1F389}`);const k=document.getElementById("verify-button");k?.addEventListener("click",()=>{const t=document.getElementById("username").value??"",n=document.getElementById("pubkey").value??"",o=t.length>0,c=n.length>0,f=/[0-9A-Fa-f]{64}/g;d();let s=!1;if(o&&(e&&u[t]&&(e.innerHTML="Sorry, this username is already taken.",s=!0),e&&Object.values(u).includes(n)&&(e.innerHTML="Sorry, this pubkey is already taken.",s=!0)),c){const l=n.match(f);e&&!l&&(s=!0,e.innerHTML="Please enter the HEX version of your public key.")}if(!s&&o&&c){const m="https://maker.ifttt.com/trigger/nostr_industries_verify/with/key/dSscp_OKcfnlqc4jitN7yc"+`?value1=${t}&value2=${n}`;fetch(m,{mode:"no-cors"}),i&&y&&(d(),y.innerHTML=`${t}@nostr.industries`,i.style.display="block")}else e&&!(o&&c)&&(e.innerHTML="Please enter your desired username and pubkey!");r&&(r.style.display="grid")});
 </script></head>
 	<body>
 		<main class="astro-5E34O4I4">
@@ -23,43 +23,43 @@
 </header>
 
 
-		<form class="verify-form astro-RZH2JHJQ">
-  <div class="astro-RZH2JHJQ">
-    <input type="text" placeholder="your-name" id="username" class="astro-RZH2JHJQ">
-    <label for="username" class="astro-RZH2JHJQ"><strong class="astro-RZH2JHJQ">@nostr.industries</strong></label>
+		<form class="verify-form astro-OSUTHWFJ">
+  <div class="astro-OSUTHWFJ">
+    <input type="text" placeholder="your-name" id="username" class="astro-OSUTHWFJ">
+    <label for="username" class="astro-OSUTHWFJ"><strong class="astro-OSUTHWFJ">@nostr.industries</strong></label>
   </div>
 
-  <div class="astro-RZH2JHJQ">
-    <input type="text" placeholder="your public key in HEX format*" id="pubkey" class="astro-RZH2JHJQ">
-    <button id="verify-button" type="button" class="astro-RZH2JHJQ">verify</button>
+  <div class="astro-OSUTHWFJ">
+    <input type="text" placeholder="your public key in HEX format*" id="pubkey" class="astro-OSUTHWFJ">
+    <button id="verify-button" type="button" class="astro-OSUTHWFJ">verify</button>
   </div>
 </form>
 
-<div class="verify-result astro-RZH2JHJQ">
-  <div id="verify-error" class="astro-RZH2JHJQ"></div>
-  <div id="verify-success" class="astro-RZH2JHJQ">
-    <strong class="astro-RZH2JHJQ">Please read this carefully</strong><br class="astro-RZH2JHJQ">
-    Your request has been submitted, thank you!<br class="astro-RZH2JHJQ">
-    Verification is currently a manual process and might take a while.<br class="astro-RZH2JHJQ">
-    You will receive a notification on nostr when it is done.<br class="astro-RZH2JHJQ"><br class="astro-RZH2JHJQ">
-    After receiving the notification:<br class="astro-RZH2JHJQ">
-    <ol class="astro-RZH2JHJQ">
-    <li class="astro-RZH2JHJQ">Edit your nostr profile</li>
-    <li class="astro-RZH2JHJQ">Enter <strong id="success-username" class="astro-RZH2JHJQ">username@nostr.industries</strong> into the NIP-05 identifier field</li>
-    <li class="astro-RZH2JHJQ">Save your profile</li>
+<div class="verify-result astro-OSUTHWFJ">
+  <div id="verify-error" class="astro-OSUTHWFJ"></div>
+  <div id="verify-success" class="astro-OSUTHWFJ">
+    <strong class="astro-OSUTHWFJ">Please read this carefully</strong><br class="astro-OSUTHWFJ">
+    Your request has been submitted, thank you!<br class="astro-OSUTHWFJ">
+    Verification is currently a manual process and might take a while.<br class="astro-OSUTHWFJ">
+    You will receive a notification on nostr when it is done.<br class="astro-OSUTHWFJ"><br class="astro-OSUTHWFJ">
+    After receiving the notification:<br class="astro-OSUTHWFJ">
+    <ol class="astro-OSUTHWFJ">
+    <li class="astro-OSUTHWFJ">Edit your nostr profile</li>
+    <li class="astro-OSUTHWFJ">Enter <strong id="success-username" class="astro-OSUTHWFJ">username@nostr.industries</strong> into the NIP-05 identifier field</li>
+    <li class="astro-OSUTHWFJ">Save your profile</li>
     </ol>
-    Congratulations, you are verified! <img src="favicon.png" class="mini-badge astro-RZH2JHJQ" alt="verification badge">
+    Congratulations, you are verified! <img src="favicon.png" class="mini-badge astro-OSUTHWFJ" alt="verification badge">
   </div>
 </div>
 
-<section class="users astro-RZH2JHJQ">
-  <strong id="user-count" class="astro-RZH2JHJQ">loading…</strong>
+<section class="users astro-OSUTHWFJ">
+  <strong id="user-count" class="astro-OSUTHWFJ">loading…</strong>
 </section>
 
-<section class="astro-RZH2JHJQ">
-  <sub class="astro-RZH2JHJQ">
-    *Hint: If your public key starts with "npub", you'll have to convert it to hex first.<br class="astro-RZH2JHJQ">
-    Head over to the <a href="https://damus.io/key" target="_new" class="astro-RZH2JHJQ">damus key converter</a> to do so.
+<section class="astro-OSUTHWFJ">
+  <sub class="astro-OSUTHWFJ">
+    *Hint: If your public key starts with "npub", you'll have to convert it to hex first.<br class="astro-OSUTHWFJ">
+    Head over to the <a href="https://damus.io/key" target="_new" class="astro-OSUTHWFJ">damus key converter</a> to do so.
   </sub>
 </section>
 
