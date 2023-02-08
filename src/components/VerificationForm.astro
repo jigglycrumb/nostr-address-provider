@@ -1,14 +1,23 @@
 <form class="verify-form">
   <div>
-    <input type="text" placeholder="your-name" id="username" />
+    <input type="text" placeholder="your-name" id="username" disabled />
     <label for="username"><strong>@nostr.industries</strong></label>
   </div>
 
   <div>
-    <input type="text" placeholder="your public key in HEX format*" id="pubkey" />
-    <button id="verify-button" type="button">verify</button>
+    <input type="text" placeholder="your public key in HEX format*" id="pubkey" disabled />
+    <button id="verify-button" type="button" disabled>verify</button>
   </div>
 </form>
+
+<div class="disabled-blurb">
+  <strong>Note: Verification is currently disabled.</strong><br />
+  The process is still fully manual and there are too many requests right now.<br />
+  I'm looking for a way to automate this and open up again.<br /><br />
+  If you tried to verify but didn't hear from me yet:<br/>
+  Please stay patient a bit longer, I am working on the queue.<br />
+  Thanks!
+</div>
 
 <div class="verify-result">
   <div id="verify-error"></div>
@@ -39,7 +48,7 @@
 </section>
 
 <style>
-	.verify-form, .verify-result {
+	.verify-form, .disabled-blurb, .verify-result {
 		line-height: 1.6;
 		border: 1px solid rgba(var(--accent), 25%);
 		background-color: white;
@@ -47,6 +56,10 @@
 		border-radius: 0.4rem;
     display: grid;
 	}
+
+  .disabled-blurb {
+    margin: 2rem 0;
+  }
 
   .verify-form {
     grid-row-gap: 1rem;
