@@ -1,0 +1,13 @@
+---
+import VerificationDisabled from "./VerificationDisabled.astro";
+import { VerificationForm } from "./VerificationForm.tsx";
+
+export interface Props {
+	disabled: boolean;
+  host: string;
+}
+
+const { disabled, host } = Astro.props
+---
+<VerificationForm disabled={disabled} host={host} client:load />
+{disabled && <VerificationDisabled />}

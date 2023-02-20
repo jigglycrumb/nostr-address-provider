@@ -1,6 +1,14 @@
+---
+export interface Props {
+	host: string;
+}
+
+const { host } = Astro.props
+---
+
 <header>
   <div>
-    <h1>Welcome to <span class="text-gradient">nostr.industries</span></h1>
+    <h1>Welcome to <span class="text-gradient">{host}</span></h1>
 
     <h3 class="text-gradient">
       Verify your Nostr username, for free.

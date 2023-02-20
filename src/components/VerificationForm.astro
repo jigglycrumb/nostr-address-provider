@@ -10,13 +10,6 @@
   </div>
 </form>
 
-<div class="disabled-blurb">
-  <strong>Note: Verification is currently disabled.</strong><br />
-  The process is still fully manual and there are too many requests right now.<br />
-  I'm looking for a way to automate this and open up again.<br />
-  Thanks!
-</div>
-
 <div class="verify-result">
   <div id="verify-error"></div>
   <div id="verify-success">
@@ -34,18 +27,25 @@
   </div>
 </div>
 
-<section class="users">
-  <strong id="user-count">loading…</strong>
-</section>
+<!-- <div class="disabled-blurb">
+  <strong>Note: Verification is currently disabled.</strong><br />
+  The process is still fully manual and there are too many requests right now.<br />
+  I'm looking for a way to automate this and open up again.<br />
+  Thanks!
+</div> -->
 
-<section>
+<!-- <section class="users">
+  <strong id="user-count">loading…</strong>
+</section> -->
+
+<!-- <section>
   <sub>
     *Hint: If your public key starts with "npub", you'll have to convert it to hex first.<br />
     Head over to the <a href="https://damus.io/key" target="_new">damus key converter</a> to do so.
   </sub>
-</section>
+</section> -->
 
-<style>
+<!-- <style>
 	.verify-form, .disabled-blurb, .verify-result {
 		line-height: 1.6;
 		border: 1px solid rgba(var(--accent), 25%);
@@ -115,13 +115,13 @@
     display: block;
     margin-bottom: 1.5rem;
   }
-</style>
+</style> -->
 
 <script>
-  const response = await fetch('https://nostr.industries/.well-known/nostr.json')
-  const data = await response.json()
-  const users = data.names
-  const userCount = document.getElementById('user-count')
+  // const response = await fetch('https://nostr.industries/.well-known/nostr.json')
+  // const data = await response.json()
+  // const users = data.names
+  // const userCount = document.getElementById('user-count')
 
   const result = (document.querySelector('.verify-result') as HTMLElement)
   const error = document.getElementById('verify-error')
@@ -136,9 +136,9 @@
     if(success) success.style.display = 'none'
   }
 
-  if(userCount) {
-    userCount.innerHTML = `Total users verified: ${Object.keys(users).length} 🎉`
-  }
+  // if(userCount) {
+  //   userCount.innerHTML = `Total users verified: ${Object.keys(users).length} 🎉`
+  // }
 
   const button = document.getElementById('verify-button')
 
