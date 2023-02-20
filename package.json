@@ -11,7 +11,13 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^1.9.0"
+    "@astrojs/react": "^2.0.2",
+    "@astrojs/vercel": "^3.1.2",
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.11",
+    "astro": "^2.0.14",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "prettier": "^2.8.2",
