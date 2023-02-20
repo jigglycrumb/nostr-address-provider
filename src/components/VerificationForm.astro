@@ -120,7 +120,7 @@
 </style>
 
 <script>
-  const response = await fetch('https://nostr.industries/.well-known/nostr.json')
+  const response = await fetch('https://www.nostr.industries/.well-known/nostr.json')
   const data = await response.json()
   const users = data.names
   const userCount = document.getElementById('user-count')
