@@ -1,7 +1,6 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { loadUsers } from "../../utils";
-
-import styles from "./VerificationStyles.css";
+import { VerificationSuccess } from "./VerificationSuccess";
 
 type VerificationFormProps = {
   disabled: boolean;
@@ -9,6 +8,19 @@ type VerificationFormProps = {
 };
 
 type UserDict = Record<string, string>;
+
+const submitForm = async (username: string, pubkey: string) => {
+  let options = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ username, pubkey }),
+  };
+  let p = await fetch("/verify", options);
+  let response = await p.json();
+  return response;
+};
 
 export const VerificationForm = ({ disabled, host }: VerificationFormProps) => {
   const [users, setUsers] = useState<boolean | UserDict>(false);
@@ -28,65 +40,98 @@ export const VerificationForm = ({ disabled, host }: VerificationFormProps) => {
   const hasUsername = username.length > 0;
   const hasPubkey = pubkey.length > 0;
 
-  // console.log("VerificationForm", users, formDisabled);
+  const showFormResult = !!formError || !!formSubmitted;
 
-  const handleUsername = (event: ChangeEvent<HTMLInputElement>) => {
-    // todo
-    const username = event.target.value;
-    setUsername(username);
+  const checkUsername = (username: string) => {
+    if (username.length === 0) {
+      setFormError(false);
+      return;
+    }
 
-    const usernameFormat = /[0-9a-z]{1,64}/i;
-    // const usernameFormat = new RegExp("[0-9a-z]{1,64}", "gi");
+    const usernameFormat = /^[0-9a-z-_\.]{1,64}$/g;
     const isUsernameValid = usernameFormat.test(username);
 
-    console.log("username", username, isUsernameValid, users as UserDict);
-
     if (!isUsernameValid) {
-      setFormError("The username can only contain letters, numbers, _ and -");
-      // return;
+      setFormError(
+        "The username can only contain lowercase letters, numbers, _, - and ."
+      );
     } else if ((users as UserDict)[username]) {
       setFormError("Sorry, this username is already taken.");
-      // return;
+    } else {
+      setFormError(false);
+    }
+  };
+
+  const handleUsername = (event: ChangeEvent<HTMLInputElement>) => {
+    const newUsername = event.target.value.toLowerCase();
+
+    if (newUsername.length === 0) {
+      setFormError(false);
+      checkPubkey(pubkey);
+    } else {
+      checkUsername(newUsername);
+    }
+
+    setUsername(newUsername);
+  };
+
+  const checkPubkey = (pubkey: string) => {
+    if (pubkey.length === 0) {
+      setFormError(false);
+      return;
+    }
+
+    const pubkeyFormat = /^[0-9a-f]{1,64}$/g;
+    const isPubkeyValid = pubkeyFormat.test(pubkey);
+
+    if (!isPubkeyValid) {
+      setFormError("Please enter the HEX version of your public key.");
+    } else if (pubkey.length !== 64) {
+      setFormError("Your public key should be 64 characters long.");
+    } else if (Object.values(users).includes(pubkey)) {
+      setFormError("Sorry, this pubkey is already taken.");
     } else {
       setFormError(false);
     }
   };
 
   const handlePubkey = (event: ChangeEvent<HTMLInputElement>) => {
-    // todo
-    const pubkey = event.target.value;
-    setPubkey(pubkey);
+    const newPubkey = event.target.value.toLowerCase();
 
-    const hexKeyRegex = /[0-9a-f]{1,64}/i;
-    const pubkeyIsHex = hexKeyRegex.test(pubkey);
-
-    console.log("pubkey", pubkey, pubkeyIsHex);
-
-    if (!pubkeyIsHex) {
-      setFormError("Please enter the HEX version of your public key.");
-      // return;
-    } else if (Object.values(users).includes(pubkey)) {
-      setFormError("Sorry, this pubkey is already taken.");
-      // return;
+    if (newPubkey.length === 0) {
+      setFormError(false);
+      checkUsername(username);
+    } else {
+      checkPubkey(newPubkey);
     }
-    // else {
-    //   setFormError(false);
-    // }
+
+    setPubkey(newPubkey);
   };
 
   const handleVerification = () => {
-    // todo
-    console.log("YOYOYO");
+    if (hasUsername && hasPubkey) {
+      // submitForm(username, pubkey).then(response => {
+      //   console.log("hit BE", response);
+      // });
 
-    const hexKeyRegex = /[0-9A-Fa-f]{64}/g;
-    const pubkeyIsHex = pubkey.match(hexKeyRegex);
+      const iftttEvent = "nostr_industries_verify";
+      const iftttUrl = `https://maker.ifttt.com/trigger/${iftttEvent}/with/key/dSscp_OKcfnlqc4jitN7yc`;
+      const dataUrl = iftttUrl + `?value1=${username}&value2=${pubkey}`;
 
-    setFormSubmitted(true);
+      fetch(dataUrl, {
+        mode: "no-cors",
+      });
+
+      setUsername("");
+      setPubkey("");
+
+      setFormSubmitted(true);
+    }
   };
 
   return (
     <>
-      <form className="verify-form">
+      <form className="box verify-form">
         <div>
           <input
             type="text"
@@ -97,7 +142,7 @@ export const VerificationForm = ({ disabled, host }: VerificationFormProps) => {
             onChange={handleUsername}
           />
           <label htmlFor="username">
-            <strong>@nostr.industries</strong>
+            <strong>@{host}</strong>
           </label>
         </div>
 
@@ -112,7 +157,7 @@ export const VerificationForm = ({ disabled, host }: VerificationFormProps) => {
           />
           <button
             type="button"
-            disabled={formDisabled || !hasUsername || !hasPubkey}
+            disabled={formDisabled || !!formError || !hasUsername || !hasPubkey}
             onClick={handleVerification}
           >
             verify
@@ -120,39 +165,14 @@ export const VerificationForm = ({ disabled, host }: VerificationFormProps) => {
         </div>
       </form>
 
-      <div className="verify-result">
-        {formError && <div id="verify-error">{formError}</div>}
-
-        {formSubmitted && (
-          <div id="verify-success">
-            <strong>Please read this carefully</strong>
-            <br />
-            Your request has been submitted, thank you!
-            <br />
-            Verification is currently a manual process and might take a while.
-            <br />
-            You will receive a notification on nostr when it is done.
-            <br />
-            <br />
-            After receiving the notification:
-            <br />
-            <ol>
-              <li>Edit your nostr profile</li>
-              <li>
-                Enter <strong id="success-username">username@{host}</strong>
-                into the NIP-05 identifier field
-              </li>
-              <li>Save your profile</li>
-            </ol>
-            Congratulations, you are verified!
-            <img
-              src="favicon.png"
-              className="mini-badge"
-              alt="verification badge"
-            />
-          </div>
-        )}
-      </div>
+      {showFormResult && (
+        <div className="box verify-result">
+          {formError && <div className="error">{formError}</div>}
+          {formSubmitted && (
+            <VerificationSuccess username={username} host={host} />
+          )}
+        </div>
+      )}
     </>
   );
 };

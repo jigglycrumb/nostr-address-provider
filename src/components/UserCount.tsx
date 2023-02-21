@@ -31,10 +31,14 @@ export const UserCount = ({ host }: UserCountProps) => {
   }, []);
 
   return (
-    <section className="user-count">
-      <strong>
-        {!userCount ? "Loading…" : `Total users verified: ${userCount} 🎉`}
-      </strong>
+    <section className="box user-count">
+      {!userCount ? (
+        <strong>Loading…</strong>
+      ) : (
+        <div>
+          <strong>Total users verified: {userCount}</strong> 🎉
+        </div>
+      )}
     </section>
   );
 };
