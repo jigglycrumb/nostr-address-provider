@@ -1,15 +1,15 @@
 import type { APIRoute } from "astro";
-import fs from "fs";
-import nostr from "../data/nostr.json" assert { type: "json" };
+// import fs from "fs";
+// import nostr from "../data/nostr.json" assert { type: "json" };
 
-type NostrData = {
-  names: Record<string, string>;
-};
+// type NostrData = {
+//   names: Record<string, string>;
+// };
 
 export const get: APIRoute = async function get({ params, request }) {
   // console.log({ request, params });
 
-  console.log(nostr);
+  // console.log(nostr);
 
   return new Response(
     JSON.stringify({
@@ -50,21 +50,21 @@ export const post: APIRoute = async function post({ request }) {
       );
     }
 
-    const users = (nostr as NostrData).names;
+    // const users = (nostr as NostrData).names;
 
-    console.log("users", users);
+    // console.log("users", users);
 
     // stop here if username or pubkey already exist
-    if (users[username] || Object.values(users).includes(pubkey)) {
-      return new Response(
-        JSON.stringify({
-          success: false,
-        }),
-        {
-          status: 400,
-        }
-      );
-    }
+    // if (users[username] || Object.values(users).includes(pubkey)) {
+    //   return new Response(
+    //     JSON.stringify({
+    //       success: false,
+    //     }),
+    //     {
+    //       status: 400,
+    //     }
+    //   );
+    // }
 
     console.log("yo", { username, pubkey });
     // return new Response(
@@ -76,25 +76,25 @@ export const post: APIRoute = async function post({ request }) {
     //   }
     // );
 
-    let newUsers = { ...users };
+    // let newUsers = { ...users };
 
     // add user
-    newUsers[username] = pubkey;
+    // newUsers[username] = pubkey;
 
     // sort users alphabetically
-    newUsers = Object.fromEntries(Object.entries(newUsers).sort());
+    // newUsers = Object.fromEntries(Object.entries(newUsers).sort());
 
-    const json = JSON.stringify({ names: newUsers }, null, 2);
+    // const json = JSON.stringify({ names: newUsers }, null, 2);
 
     // fs.writeFileSync("../data/nostr.json", json, { flag: "w+" });
 
-    fs.writeFile(".well-known/nostr.json", json, { flag: "w+" }, err => {
-      if (err) console.log(err);
-      else {
-        console.log("File written successfully\n");
-        console.log("The written has the following contents:");
-      }
-    });
+    // fs.writeFile(".well-known/nostr.json", json, { flag: "w+" }, err => {
+    //   if (err) console.log(err);
+    //   else {
+    //     console.log("File written successfully\n");
+    //     console.log("The written has the following contents:");
+    //   }
+    // });
 
     // console.log(`Added ${username}@nostr.industries`);
 
