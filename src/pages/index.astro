@@ -1,14 +1,24 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Donation from '../components/Donation.astro';
-import VerificationForm from '../components/VerificationForm.astro';
+import KeyHint from '../components/KeyHint.astro'
+import { UserCount } from '../components/UserCount.tsx';
+import Verification from '../components/Verification/Verification.astro';
 import Welcome from '../components/Welcome.astro';
+
+// set this to your domain name
+const host = "nostr.industries"
+
+// set this to true to disable verification site-wide
+const disabled = true
 ---
 
-<Layout title="Welcome to nostr.industries">
+<Layout title={`Welcome to ${host}`}>
 	<main>
-		<Welcome />
-		<VerificationForm />
+		<Welcome host={host} />
+		<Verification disabled={disabled} host={host} />
+		<KeyHint />
+		<UserCount host={host} client:load />
 		<Donation />
 	</main>
 </Layout>
