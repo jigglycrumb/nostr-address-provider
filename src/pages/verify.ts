@@ -1,4 +1,12 @@
 import type { APIRoute } from "astro";
+import { MongoClient } from "mongodb";
+
+// Connection URL
+const url = import.meta.env.MONGODB_URI;
+const client = new MongoClient(url);
+const dbName = "verification";
+const dbCollection = "names";
+
 // import fs from "fs";
 // import nostr from "../data/nostr.json" assert { type: "json" };
 
@@ -10,6 +18,30 @@ export const get: APIRoute = async function get({ params, request }) {
   // console.log({ request, params });
 
   // console.log(nostr);
+
+  // console.log("db uri", import.meta.env.MONGODB_URI);
+  // console.log("client", client);
+
+  // Use connect method to connect to the server
+  await client.connect();
+  console.log("Connected successfully to server");
+  const db = client.db(dbName);
+  const collection = db.collection(dbCollection);
+
+  // log all
+  const findResult = await collection.find({}).toArray();
+  console.log("Found documents =>", findResult);
+
+  // find by username
+  const filteredDocs = await collection
+    .find({ username: "jigglycrumb" })
+    .toArray();
+  console.log("Found documents filtered =>", filteredDocs);
+
+  // console.log("collection", collection);
+  // the following code examples can be pasted here...
+
+  // return "done.";
 
   return new Response(
     JSON.stringify({
