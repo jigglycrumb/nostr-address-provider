@@ -9,6 +9,7 @@ const dbCollection = "names";
 
 export const post: APIRoute = async function post({ request }) {
   if (request.headers.get("Content-Type") === "application/json") {
+    let hasError = false;
     const body = await request.json();
     const { username, pubkey } = body;
 
@@ -20,14 +21,7 @@ export const post: APIRoute = async function post({ request }) {
 
     // stop here if username or pubkey are invalid
     if (!isUsernameValid || !isPubkeyValid) {
-      return new Response(
-        JSON.stringify({
-          success: false,
-        }),
-        {
-          status: 400,
-        }
-      );
+      hasError = true;
     }
 
     // Use connect method to connect to the server
@@ -39,44 +33,28 @@ export const post: APIRoute = async function post({ request }) {
     const existingUsers = await collection.find({ username }).toArray();
     // stop here if username exists
     if (existingUsers.length > 0) {
-      client.close();
-      return new Response(
-        JSON.stringify({
-          success: false,
-        }),
-        {
-          status: 400,
-        }
-      );
+      hasError = true;
     }
 
     // find by pubkey
     const existingPubkeys = await collection.find({ pubkey }).toArray();
     // stop here if username exists
     if (existingPubkeys.length > 0) {
-      client.close();
-      return new Response(
-        JSON.stringify({
-          success: false,
-        }),
-        {
-          status: 400,
-        }
-      );
+      hasError = true;
     }
 
-    collection.insertOne({ username, pubkey });
-
-    // console.log(`Added user: ${username}`);
+    if (!hasError) {
+      collection.insertOne({ username, pubkey });
+    }
 
     client.close();
 
     return new Response(
       JSON.stringify({
-        success: true,
+        success: !hasError,
       }),
       {
-        status: 200,
+        status: hasError ? 400 : 200,
       }
     );
   }
