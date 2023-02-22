@@ -30,6 +30,8 @@ export const VerificationForm = ({ disabled, host }: VerificationFormProps) => {
   const [formError, setFormError] = useState<boolean | string>(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
 
+  const [submittedUsername, setSubmittedUsername] = useState("");
+
   useEffect(() => {
     loadUsers().then(users => {
       setUsers(users);
@@ -112,6 +114,7 @@ export const VerificationForm = ({ disabled, host }: VerificationFormProps) => {
     if (hasUsername && hasPubkey) {
       submitForm(username, pubkey).then(response => {
         if (response.success) {
+          setSubmittedUsername(username);
           setUsername("");
           setPubkey("");
           setFormSubmitted(true);
@@ -160,7 +163,7 @@ export const VerificationForm = ({ disabled, host }: VerificationFormProps) => {
         <div className="box verify-result">
           {formError && <div className="error">{formError}</div>}
           {formSubmitted && (
-            <VerificationSuccess username={username} host={host} />
+            <VerificationSuccess username={submittedUsername} host={host} />
           )}
         </div>
       )}
