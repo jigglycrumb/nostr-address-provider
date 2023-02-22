@@ -1,6 +1,6 @@
 import type { APIRoute } from "astro";
 import { MongoClient } from "mongodb";
-import nostr from "../../data/nostr.json" assert { type: "json" };
+import nostr from "../../import/nostr.json" assert { type: "json" };
 
 // Connection URL
 const url = import.meta.env.MONGODB_URI;

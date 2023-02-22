@@ -10,16 +10,16 @@ type VerificationFormProps = {
 type UserDict = Record<string, string>;
 
 const submitForm = async (username: string, pubkey: string) => {
-  let options = {
+  const options = {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ username, pubkey }),
   };
-  let p = await fetch("/verify", options);
-  let response = await p.json();
-  return response;
+  const response = await fetch("/verify", options);
+  const json = await response.json();
+  return json;
 };
 
 export const VerificationForm = ({ disabled, host }: VerificationFormProps) => {
@@ -31,7 +31,7 @@ export const VerificationForm = ({ disabled, host }: VerificationFormProps) => {
   const [formSubmitted, setFormSubmitted] = useState(false);
 
   useEffect(() => {
-    loadUsers(host).then(users => {
+    loadUsers().then(users => {
       setUsers(users);
     });
   }, []);
@@ -110,22 +110,13 @@ export const VerificationForm = ({ disabled, host }: VerificationFormProps) => {
 
   const handleVerification = () => {
     if (hasUsername && hasPubkey) {
-      // submitForm(username, pubkey).then(response => {
-      //   console.log("hit BE", response);
-      // });
-
-      const iftttEvent = "nostr_industries_verify";
-      const iftttUrl = `https://maker.ifttt.com/trigger/${iftttEvent}/with/key/dSscp_OKcfnlqc4jitN7yc`;
-      const dataUrl = iftttUrl + `?value1=${username}&value2=${pubkey}`;
-
-      fetch(dataUrl, {
-        mode: "no-cors",
+      submitForm(username, pubkey).then(response => {
+        if (response.success) {
+          setUsername("");
+          setPubkey("");
+          setFormSubmitted(true);
+        }
       });
-
-      setUsername("");
-      setPubkey("");
-
-      setFormSubmitted(true);
     }
   };
 

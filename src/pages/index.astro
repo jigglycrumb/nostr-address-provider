@@ -10,7 +10,7 @@ import Welcome from '../components/Welcome.astro';
 const host = "nostr.industries"
 
 // set this to true to disable verification site-wide
-const disabled = true
+const disabled = false
 ---
 
 <Layout title={`Welcome to ${host}`}>
@@ -18,7 +18,7 @@ const disabled = true
 		<Welcome host={host} />
 		<Verification disabled={disabled} host={host} />
 		<KeyHint />
-		<UserCount host={host} client:load />
+		<UserCount client:load />
 		<Donation />
 	</main>
 </Layout>

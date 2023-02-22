@@ -25,7 +25,7 @@ export const get: APIRoute = async function get({ request }) {
   });
 
   const json = {
-    names: userMap,
+    names: Object.fromEntries(Object.entries(userMap).sort()),
   };
 
   return {
