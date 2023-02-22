@@ -44,10 +44,10 @@ export const post: APIRoute = async function post({ request }) {
     }
 
     if (!hasError) {
-      collection.insertOne({ username, pubkey }).then(() => client.close());
-    } else {
-      client.close();
+      await collection.insertOne({ username, pubkey }); //.then(() => client.close());
     }
+
+    client.close();
 
     return new Response(
       JSON.stringify({
