@@ -28,6 +28,8 @@ export const get: APIRoute = async function get({ request }) {
     names: Object.fromEntries(Object.entries(userMap).sort()),
   };
 
+  client.close();
+
   return {
     body: JSON.stringify(json),
   };

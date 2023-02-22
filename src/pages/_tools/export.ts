@@ -22,6 +22,8 @@ export const get: APIRoute = async function get({ params, request }) {
     names: userMap,
   };
 
+  client.close();
+
   return new Response(JSON.stringify(json), {
     status: 200,
     headers: {

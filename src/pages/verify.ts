@@ -39,6 +39,7 @@ export const post: APIRoute = async function post({ request }) {
     const existingUsers = await collection.find({ username }).toArray();
     // stop here if username exists
     if (existingUsers.length > 0) {
+      client.close();
       return new Response(
         JSON.stringify({
           success: false,
@@ -53,6 +54,7 @@ export const post: APIRoute = async function post({ request }) {
     const existingPubkeys = await collection.find({ pubkey }).toArray();
     // stop here if username exists
     if (existingPubkeys.length > 0) {
+      client.close();
       return new Response(
         JSON.stringify({
           success: false,
@@ -66,6 +68,8 @@ export const post: APIRoute = async function post({ request }) {
     collection.insertOne({ username, pubkey });
 
     console.log(`Added user: ${username}`);
+
+    client.close();
 
     return new Response(
       JSON.stringify({
