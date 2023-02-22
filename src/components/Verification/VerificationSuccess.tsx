@@ -8,11 +8,10 @@ export const VerificationSuccess = ({
   host,
 }: VerificationSuccessProps) => {
   return (
-    <div>
-      <strong>Please read this carefully</strong>
+    <div className="verify-success">
+      <strong>Your verification was successful!</strong>
       <br />
-      Your verification was successful!
-      <br />
+      Next steps:
       <ol>
         <li>Edit your nostr profile</li>
         <li>
