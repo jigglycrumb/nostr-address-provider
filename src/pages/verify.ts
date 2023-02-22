@@ -67,7 +67,7 @@ export const post: APIRoute = async function post({ request }) {
 
     collection.insertOne({ username, pubkey });
 
-    console.log(`Added user: ${username}`);
+    // console.log(`Added user: ${username}`);
 
     client.close();
 
