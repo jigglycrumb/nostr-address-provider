@@ -1,13 +1,12 @@
 ---
 import { CopyWrapper } from './CopyWrapper.tsx'
-import * as qrPkg from 'qrcode.react';
+import QRCode from "react-qr-code";
 export interface Props {
 	lnUrl: string;
   costsMonthly: string;
 }
 
 const { lnUrl, costsMonthly } = Astro.props
-const { QRCodeSVG } = qrPkg;
 ---
 
 <section class="donation">
@@ -18,7 +17,7 @@ const { QRCodeSVG } = qrPkg;
     If you like this service, please consider a small lightning ⚡ donation to keep it up:
   </p>
 
-  <QRCodeSVG className="lnqr text-gradient" level="M" size={300} fgColor="var(--text)" value={`lightning:${lnUrl}`} includeMargin />
+  <QRCode className="lnqr text-gradient" level="M" size={300} fgColor="var(--text)" value={`lightning:${lnUrl}`} />
 
   <div class="or">or</div>
 
@@ -48,6 +47,9 @@ const { QRCodeSVG } = qrPkg;
     display: block;
     margin: 2rem auto 0 auto;
     border: 1px solid rgba(var(--accent), 25%);
+    background: #ffffff;
+    padding: 24px;
+    box-sizing: border-box;
   }
 
   .or {
