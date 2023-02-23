@@ -1,12 +1,17 @@
 ---
 import { CopyWrapper } from './CopyWrapper.tsx'
 
-const lightningDonationString = "LNURL1DP68GURN8GHJ7MR9VAJKUEPWD3HXY6T5WVHXXMMD9AKXUATJD3CZ7JMPVDV9YCC4FVREX"
+export interface Props {
+	lnUrl: string;
+  costsMonthly: string;
+}
+
+const { lnUrl, costsMonthly } = Astro.props
 ---
 
 <section class="donation">
   <p>
-    This service is free, but it takes some time and costs USD $4/month to operate.
+    This service is free, but it takes some time and costs {costsMonthly}/month to operate.
   </p>
   <p>
     If you like this service, please consider a small lightning ⚡ donation to keep it up:
@@ -17,12 +22,12 @@ const lightningDonationString = "LNURL1DP68GURN8GHJ7MR9VAJKUEPWD3HXY6T5WVHXXMMD9
   <div class="or">or</div>
 
   <CopyWrapper
-    text={lightningDonationString}
+    text={lnUrl}
     client:visible
   >
     <div class="box copy-box">
       <code>
-        {lightningDonationString}
+        {lnUrl}
       </code>
       <button><img src="images/copy-icon.svg" /></button>
     </div>
