@@ -17,7 +17,14 @@ const { lnUrl, costsMonthly } = Astro.props
     If you like this service, please consider a small lightning ⚡ donation to keep it up:
   </p>
 
-  <QRCode className="lnqr text-gradient" level="M" size={300} fgColor="var(--text)" value={`lightning:${lnUrl}`} />
+  <QRCode
+    className="lnqr text-gradient"
+    level="M"
+    size={300}
+    fgColor="var(--text)"
+    value={`lightning:${lnUrl}`}
+    client:visible
+  />
 
   <div class="or">or</div>
 
