@@ -1,4 +1,5 @@
 ---
+import { QRCodeSVG } from 'qrcode.react';
 import { CopyWrapper } from './CopyWrapper.tsx'
 
 export interface Props {
@@ -17,7 +18,7 @@ const { lnUrl, costsMonthly } = Astro.props
     If you like this service, please consider a small lightning ⚡ donation to keep it up:
   </p>
 
-  <img class="lnqr" src="images/ln-donation-qr.png" alt="lightning donation qr code" />
+  <QRCodeSVG className="lnqr text-gradient" level="M" size={300} fgColor="var(--text)" value={`lightning:${lnUrl}`} includeMargin />
 
   <div class="or">or</div>
 
