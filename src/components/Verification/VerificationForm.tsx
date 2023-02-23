@@ -29,7 +29,6 @@ export const VerificationForm = ({ disabled, host }: VerificationFormProps) => {
 
   const [formError, setFormError] = useState<boolean | string>(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
-
   const [submittedUsername, setSubmittedUsername] = useState("");
 
   useEffect(() => {

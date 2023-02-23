@@ -28,7 +28,8 @@ const { title } = Astro.props;
     font-family: system-ui, sans-serif;
     background-color: #F6F6F6;
   }
-  code {
+
+  code, .copy-input {
     font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
       Bitstream Vera Sans Mono, Courier New, monospace;
   }
@@ -70,16 +71,16 @@ const { title } = Astro.props;
     background: rgba(var(--accent), 25%);
   }
 
-  .error {
-    color: #ff6666;
-  }
-
-  .text-gradient, strong {
+  strong, .text-gradient {
     background-image: var(--accent-gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-size: 400%;
     background-position: 0%;
+  }
+
+  .error {
+    color: #ff6666;
   }
 
   .box {
@@ -108,9 +109,8 @@ const { title } = Astro.props;
     margin: 1rem 0;
   }
 
-  .verify-success ol {
-    padding-left: 2rem;
-    margin: 0.5rem 0 1rem 0;
+  .verify-success p {
+    margin: 0 0 1rem 0;
   }
 
   .user-count {
@@ -122,5 +122,56 @@ const { title } = Astro.props;
     top: 4px;
     width: 20px;
     margin-left: 0.5ch;
+  }
+
+  .copy-wrapper {
+    cursor: pointer;
+    position: relative;
+  }
+
+  .copy-wrapper .success {
+    position: absolute;
+    width: 100px;
+    left: 50%;
+    top: 0;
+    margin-left: -50px;
+    text-align: center;
+    padding: 0;
+  }
+
+  .success-enter {
+    top: 0;
+    opacity: 0;
+  }
+
+  .success-enter.success-enter-active {
+    top: -20px;
+    opacity: 1;
+    transition: top 250ms ease-out, opacity 250ms linear;
+  }
+
+  .success-exit.success-exit-active {
+    top: -20px;
+    opacity: 0;
+    transition: opacity 250ms ease-in;
+  }
+
+  .copy-box {
+    display: grid;
+    grid-gap: 8px;
+    grid-template-columns: 1fr min-content;
+    align-items: center;
+    padding: 4px 4px 4px 1ch;
+  }
+
+  .copy-box button {
+    padding: 6px;
+    width: 24px;
+    height: 24px;
+  }
+
+  .copy-box button img {
+    position: relative;
+    top: -1px;
   }
 </style>
