@@ -1,15 +1,13 @@
 ---
-// import { QRCodeSVG } from 'qrcode.react';
 import { CopyWrapper } from './CopyWrapper.tsx'
-import pkg from 'qrcode.react';
-const { QRCodeSVG } = pkg;
-
+import qrPkg from 'qrcode.react';
 export interface Props {
 	lnUrl: string;
   costsMonthly: string;
 }
 
 const { lnUrl, costsMonthly } = Astro.props
+const { QRCodeSVG } = qrPkg;
 ---
 
 <section class="donation">
