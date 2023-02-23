@@ -1,6 +1,8 @@
 ---
-import { QRCodeSVG } from 'qrcode.react';
+// import { QRCodeSVG } from 'qrcode.react';
 import { CopyWrapper } from './CopyWrapper.tsx'
+import pkg from 'qrcode.react';
+const { QRCodeSVG } = pkg;
 
 export interface Props {
 	lnUrl: string;
