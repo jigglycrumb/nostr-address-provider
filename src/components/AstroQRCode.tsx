@@ -1,6 +1,6 @@
 import QRCode from "react-qr-code";
 
-export const SSRQRCode = ({ lnUrl }: { lnUrl: string }) => {
+export const AstroQRCode = ({ lnUrl }: { lnUrl: string }) => {
   return (
     <QRCode
       className="lnqr text-gradient"
