@@ -10,16 +10,16 @@ type VerificationFormProps = {
 type UserDict = Record<string, string>;
 
 const submitForm = async (username: string, pubkey: string) => {
-  let options = {
+  const options = {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ username, pubkey }),
   };
-  let p = await fetch("/verify", options);
-  let response = await p.json();
-  return response;
+  const response = await fetch("/verify", options);
+  const json = await response.json();
+  return json;
 };
 
 export const VerificationForm = ({ disabled, host }: VerificationFormProps) => {
@@ -29,9 +29,10 @@ export const VerificationForm = ({ disabled, host }: VerificationFormProps) => {
 
   const [formError, setFormError] = useState<boolean | string>(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [submittedUsername, setSubmittedUsername] = useState("");
 
   useEffect(() => {
-    loadUsers(host).then(users => {
+    loadUsers().then(users => {
       setUsers(users);
     });
   }, []);
@@ -110,22 +111,14 @@ export const VerificationForm = ({ disabled, host }: VerificationFormProps) => {
 
   const handleVerification = () => {
     if (hasUsername && hasPubkey) {
-      // submitForm(username, pubkey).then(response => {
-      //   console.log("hit BE", response);
-      // });
-
-      const iftttEvent = "nostr_industries_verify";
-      const iftttUrl = `https://maker.ifttt.com/trigger/${iftttEvent}/with/key/dSscp_OKcfnlqc4jitN7yc`;
-      const dataUrl = iftttUrl + `?value1=${username}&value2=${pubkey}`;
-
-      fetch(dataUrl, {
-        mode: "no-cors",
+      submitForm(username, pubkey).then(response => {
+        if (response.success) {
+          setSubmittedUsername(username);
+          setUsername("");
+          setPubkey("");
+          setFormSubmitted(true);
+        }
       });
-
-      setUsername("");
-      setPubkey("");
-
-      setFormSubmitted(true);
     }
   };
 
@@ -169,7 +162,7 @@ export const VerificationForm = ({ disabled, host }: VerificationFormProps) => {
         <div className="box verify-result">
           {formError && <div className="error">{formError}</div>}
           {formSubmitted && (
-            <VerificationSuccess username={username} host={host} />
+            <VerificationSuccess username={submittedUsername} host={host} />
           )}
         </div>
       )}

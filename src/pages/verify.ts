@@ -1,34 +1,15 @@
 import type { APIRoute } from "astro";
-// import fs from "fs";
-// import nostr from "../data/nostr.json" assert { type: "json" };
+import { MongoClient } from "mongodb";
 
-// type NostrData = {
-//   names: Record<string, string>;
-// };
-
-export const get: APIRoute = async function get({ params, request }) {
-  // console.log({ request, params });
-
-  // console.log(nostr);
-
-  return new Response(
-    JSON.stringify({
-      name: "Astro",
-      url: "https://astro.build/",
-    }),
-    {
-      status: 200,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  );
-};
+// Connection URL
+const url = import.meta.env.MONGODB_URI;
+const client = new MongoClient(url);
+const dbName = "verification";
+const dbCollection = "names";
 
 export const post: APIRoute = async function post({ request }) {
-  // console.log(request);
-
   if (request.headers.get("Content-Type") === "application/json") {
+    let hasError = false;
     const body = await request.json();
     const { username, pubkey } = body;
 
@@ -40,72 +21,40 @@ export const post: APIRoute = async function post({ request }) {
 
     // stop here if username or pubkey are invalid
     if (!isUsernameValid || !isPubkeyValid) {
-      return new Response(
-        JSON.stringify({
-          success: false,
-        }),
-        {
-          status: 400,
-        }
-      );
+      hasError = true;
     }
 
-    // const users = (nostr as NostrData).names;
+    // Use connect method to connect to the server
+    await client.connect();
+    const db = client.db(dbName);
+    const collection = db.collection(dbCollection);
 
-    // console.log("users", users);
+    // find by username
+    const existingUsers = await collection.find({ username }).toArray();
+    // stop here if username exists
+    if (existingUsers.length > 0) {
+      hasError = true;
+    }
 
-    // stop here if username or pubkey already exist
-    // if (users[username] || Object.values(users).includes(pubkey)) {
-    //   return new Response(
-    //     JSON.stringify({
-    //       success: false,
-    //     }),
-    //     {
-    //       status: 400,
-    //     }
-    //   );
-    // }
+    // find by pubkey
+    const existingPubkeys = await collection.find({ pubkey }).toArray();
+    // stop here if username exists
+    if (existingPubkeys.length > 0) {
+      hasError = true;
+    }
 
-    console.log("yo", { username, pubkey });
-    // return new Response(
-    //   JSON.stringify({
-    //     success: false,
-    //   }),
-    //   {
-    //     status: 400,
-    //   }
-    // );
+    if (!hasError) {
+      await collection.insertOne({ username, pubkey }); //.then(() => client.close());
+    }
 
-    // let newUsers = { ...users };
-
-    // add user
-    // newUsers[username] = pubkey;
-
-    // sort users alphabetically
-    // newUsers = Object.fromEntries(Object.entries(newUsers).sort());
-
-    // const json = JSON.stringify({ names: newUsers }, null, 2);
-
-    // fs.writeFileSync("../data/nostr.json", json, { flag: "w+" });
-
-    // fs.writeFile(".well-known/nostr.json", json, { flag: "w+" }, err => {
-    //   if (err) console.log(err);
-    //   else {
-    //     console.log("File written successfully\n");
-    //     console.log("The written has the following contents:");
-    //   }
-    // });
-
-    // console.log(`Added ${username}@nostr.industries`);
-
-    // console.log(json);
+    client.close();
 
     return new Response(
       JSON.stringify({
-        success: true,
+        success: !hasError,
       }),
       {
-        status: 200,
+        status: hasError ? 400 : 200,
       }
     );
   }

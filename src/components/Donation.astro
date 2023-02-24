@@ -1,30 +1,50 @@
+---
+// import QRCode from "react-qr-code";
+import { CopyWrapper } from './CopyWrapper.tsx'
+import { AstroQRCode } from './AstroQRCode.tsx';
+export interface Props {
+	lnUrl: string;
+  costsMonthly: string;
+}
+
+const { lnUrl, costsMonthly } = Astro.props
+---
+
 <section class="donation">
   <p>
-    This service is free, but it costs USD $4/month to operate and (unless it can be automated) manually adding users takes time.
-    <br /><br />
+    This service is free, but it takes some time and costs {costsMonthly}/month to operate.
+  </p>
+  <p>
     If you like this service, please consider a small lightning ⚡ donation to keep it up:
   </p>
 
-  <img src="images/ln-donation-qr.png" alt="lightning donation qr code" />
+  <AstroQRCode lnUrl={lnUrl} client:only />
 
-  <code>
-    LNURL1DP68GURN8GHJ7MR9VAJKUEPWD3HXY6T5WVHXXMMD9AKXUATJD3CZ7JMPVDV9YCC4FVREX
-  </code>
+  <div class="or">or</div>
+
+  <CopyWrapper
+    text={lnUrl}
+    client:visible
+  >
+    <div class="box copy-box">
+      <code>
+        {lnUrl}
+      </code>
+      <button><img src="images/copy-icon.svg" /></button>
+    </div>
+  </CopyWrapper>
 </section>
 
 <style>
-  section.donation {
+  .donation {
     display: block;
     margin-top: 3rem;
     border-top: 1px solid rgb(var(--accent));
   }
 
-  img {
-    max-width: 300px;
-    border-radius: 0.5rem;
-    display: block;
-    margin: 2rem auto;
-    border: 1px solid rgba(var(--accent), 25%);
+  .or {
+    margin: 1rem 0;
+    text-align: center;
   }
 
   code {

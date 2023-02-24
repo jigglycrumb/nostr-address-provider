@@ -1,6 +1,6 @@
 ---
 export interface Props {
-	title: string;
+  title: string;
 }
 
 const { title } = Astro.props;
@@ -8,113 +8,183 @@ const { title } = Astro.props;
 
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/png" href="/favicon.png" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <slot />
+  </body>
 </html>
 <style is:global>
-	:root {
-		--accent: 124, 58, 237;
-		--accent-gradient: linear-gradient(45deg, rgb(var(--accent)), #da62c4 30%, white 60%);
-	}
-	html {
-		font-family: system-ui, sans-serif;
-		background-color: #F6F6F6;
-	}
-	code {
-		font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
-			Bitstream Vera Sans Mono, Courier New, monospace;
-	}
+  :root {
+    --accent: 124, 58, 237;
+    --accent-gradient: linear-gradient(45deg, rgb(var(--accent)), #da62c4 30%, white 60%);
+    --text: #333333;
+  }
+  html {
+    font-family: system-ui, sans-serif;
+    background-color: #F6F6F6;
+    color: var(--text);
+  }
 
-	a {
-		color: rgb(var(--accent));
-	}
+  code, .copy-input {
+    font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
+      Bitstream Vera Sans Mono, Courier New, monospace;
+  }
 
-	input[type=text] {
-		padding: 0.5rem;
-		border-radius: 0.5rem;
-		border: 1px solid rgba(var(--accent), 25%);
-	}
+  a {
+    color: rgb(var(--accent));
+  }
 
-	input[disabled] {
-		opacity: 0.5;
-	}
+  input[type=text] {
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    border: 1px solid rgba(var(--accent), 25%);
+  }
 
-	input:focus-visible {
+  input[disabled] {
+    opacity: 0.5;
+  }
+
+  input:focus-visible {
     outline: rgb(var(--accent)) auto 1px;
-	}
+  }
 
-	button {
-		width: calc(100% - 1rem);
-		background: var(--accent-gradient);
-		background-size: 400%;
-		background-position: 0%;
-		color: white;
-		border: none;
-		border-radius: 0.4rem;
-		font-weight: bold;
-		text-transform: uppercase;
-		padding: 0.5rem;
-		cursor: pointer;
-	}
+  button {
+    width: calc(100% - 1rem);
+    background: var(--accent-gradient);
+    background-size: 400%;
+    background-position: 0%;
+    color: white;
+    border: none;
+    border-radius: 0.4rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 0.5rem;
+    cursor: pointer;
+  }
 
-	button[disabled] {
-		cursor: default;
-		background: rgba(var(--accent), 25%);
-	}
+  button[disabled] {
+    cursor: default;
+    background: rgba(var(--accent), 25%);
+  }
 
-	.error {
-		color: #ff6666;
-	}
-
-	.text-gradient, strong {
-		background-image: var(--accent-gradient);
+  strong, .text-gradient {
+    background-image: var(--accent-gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-size: 400%;
     background-position: 0%;
-	}
+  }
 
-	.box {
-		line-height: 1.6;
-		border: 1px solid rgba(var(--accent), 25%);
-		background-color: white;
-		padding: 1rem;
-		border-radius: 0.4rem;
-		display: grid;
-	}
+  .error {
+    color: #ff6666;
+  }
 
-	.verify-form {
-		grid-row-gap: 1rem;
-		margin: 2rem 0 1rem 0;
-	}
+  .box {
+    line-height: 1.6;
+    border: 1px solid rgba(var(--accent), 25%);
+    background-color: white;
+    padding: 1rem;
+    border-radius: 0.4rem;
+    display: grid;
+  }
 
-	.verify-form>div {
-		display: grid;
-		grid-template-columns: 60% 40%;
-		grid-gap: 1ch;
-		align-items: center;
-	}
+  .verify-form {
+    grid-row-gap: 1rem;
+    margin: 2rem 0 1rem 0;
+  }
 
-	.verify-result {
-		grid-row-gap: 0;
-		margin: 1rem 0;
-	}
+  .verify-form>div {
+    display: grid;
+    grid-template-columns: 60% 40%;
+    grid-gap: 1ch;
+    align-items: center;
+  }
 
-	.user-count {
-		margin-top: 3rem;
-	}
+  .verify-result {
+    grid-row-gap: 0;
+    margin: 1rem 0;
+  }
 
-	.mini-badge {
-		position: relative;
-		top: 4px;
-		width: 20px;
-	}
+  .verify-success p {
+    margin: 0 0 1rem 0;
+  }
+
+  .user-count {
+    margin-top: 3rem;
+  }
+
+  .mini-badge {
+    position: relative;
+    top: 4px;
+    width: 20px;
+    margin-left: 0.5ch;
+  }
+
+  .copy-wrapper {
+    cursor: pointer;
+    position: relative;
+  }
+
+  .copy-wrapper .success {
+    position: absolute;
+    width: 100px;
+    left: 50%;
+    top: 0;
+    margin-left: -50px;
+    text-align: center;
+    padding: 0;
+  }
+
+  .success-enter {
+    top: 0;
+    opacity: 0;
+  }
+
+  .success-enter.success-enter-active {
+    top: -20px;
+    opacity: 1;
+    transition: top 250ms ease-out, opacity 250ms linear;
+  }
+
+  .success-exit.success-exit-active {
+    top: -20px;
+    opacity: 0;
+    transition: opacity 250ms ease-in;
+  }
+
+  .copy-box {
+    display: grid;
+    grid-gap: 8px;
+    grid-template-columns: 1fr min-content;
+    align-items: center;
+    padding: 4px 4px 4px 1ch;
+  }
+
+  .copy-box button {
+    padding: 6px;
+    width: 24px;
+    height: 24px;
+  }
+
+  .copy-box button img {
+    position: relative;
+    top: -1px;
+  }
+
+  .lnqr {
+    max-width: 300px;
+    border-radius: 0.5rem;
+    display: block;
+    margin: 2rem auto 0 auto;
+    border: 1px solid rgba(var(--accent), 25%);
+    background: #ffffff;
+    padding: 24px;
+    box-sizing: border-box;
+  }
 </style>
