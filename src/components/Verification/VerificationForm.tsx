@@ -68,12 +68,12 @@ export const VerificationForm = ({ disabled, host }: VerificationFormProps) => {
 
     if (newUsername.length === 0) {
       setFormError(false);
-      checkPubkey(pubkey);
     } else {
       checkUsername(newUsername);
     }
 
     setUsername(newUsername);
+    checkPubkey(pubkey);
   };
 
   const checkPubkey = (pubkey: string) => {
@@ -101,12 +101,12 @@ export const VerificationForm = ({ disabled, host }: VerificationFormProps) => {
 
     if (newPubkey.length === 0) {
       setFormError(false);
-      checkUsername(username);
     } else {
       checkPubkey(newPubkey);
     }
 
     setPubkey(newPubkey);
+    checkUsername(username);
   };
 
   const handleVerification = () => {
