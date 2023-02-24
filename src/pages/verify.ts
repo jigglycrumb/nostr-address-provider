@@ -44,7 +44,8 @@ export const post: APIRoute = async function post({ request }) {
     }
 
     if (!hasError) {
-      await collection.insertOne({ username, pubkey }); //.then(() => client.close());
+      const verifiedAt = new Date().toISOString();
+      await collection.insertOne({ username, pubkey, verifiedAt });
     }
 
     client.close();
