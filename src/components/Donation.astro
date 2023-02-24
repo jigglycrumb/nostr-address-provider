@@ -1,10 +1,13 @@
 ---
-import QRCode from "react-qr-code";
+// import QRCode from "react-qr-code";
 import { CopyWrapper } from './CopyWrapper.tsx'
+import { SSRQRCode } from './SSRQRCode.tsx';
 export interface Props {
 	lnUrl: string;
   costsMonthly: string;
 }
+
+// console.log({ SSRQRCode, CopyWrapper })
 
 const { lnUrl, costsMonthly } = Astro.props
 ---
@@ -17,14 +20,16 @@ const { lnUrl, costsMonthly } = Astro.props
     If you like this service, please consider a small lightning ⚡ donation to keep it up:
   </p>
 
-  <QRCode
+  <SSRQRCode lnUrl={lnUrl} />
+
+  <!-- <QRCode
     className="lnqr text-gradient"
     level="M"
     size={300}
     fgColor="var(--text)"
     value={`lightning:${lnUrl}`}
-    client:only
-  />
+    client:only="react"
+  /> -->
 
   <div class="or">or</div>
 
@@ -46,17 +51,6 @@ const { lnUrl, costsMonthly } = Astro.props
     display: block;
     margin-top: 3rem;
     border-top: 1px solid rgb(var(--accent));
-  }
-
-  .lnqr {
-    max-width: 300px;
-    border-radius: 0.5rem;
-    display: block;
-    margin: 2rem auto 0 auto;
-    border: 1px solid rgba(var(--accent), 25%);
-    background: #ffffff;
-    padding: 24px;
-    box-sizing: border-box;
   }
 
   .or {
