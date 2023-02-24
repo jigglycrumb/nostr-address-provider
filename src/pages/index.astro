@@ -9,6 +9,12 @@ import Welcome from '../components/Welcome.astro';
 // set this to your domain name
 const host = "nostr.industries"
 
+// set this to your monthly costs
+const costsMonthly = "$4 USD"
+
+// set this to your donation LNURL
+const donationLNUrl = "LNURL1DP68GURN8GHJ7MR9VAJKUEPWD3HXY6T5WVHXXMMD9AKXUATJD3CZ7JMPVDV9YCC4FVREX"
+
 // set this to true to disable verification site-wide
 const disabled = true
 ---
@@ -18,8 +24,8 @@ const disabled = true
 		<Welcome host={host} />
 		<Verification disabled={disabled} host={host} />
 		<KeyHint />
-		<UserCount host={host} client:load />
-		<Donation />
+		<UserCount client:load />
+		<Donation lnUrl={donationLNUrl} costsMonthly={costsMonthly} />
 	</main>
 </Layout>
 
