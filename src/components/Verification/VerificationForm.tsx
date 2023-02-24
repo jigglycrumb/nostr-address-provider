@@ -31,13 +31,11 @@ export const VerificationForm = ({ disabled, host }: VerificationFormProps) => {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [submittedUsername, setSubmittedUsername] = useState("");
 
-  const updateUsers = () => {
+  useEffect(() => {
     loadUsers().then(users => {
       setUsers(users);
     });
-  };
-
-  useEffect(updateUsers, []);
+  }, []);
 
   const formDisabled = !users || disabled;
   const hasUsername = username.length > 0;
@@ -76,7 +74,6 @@ export const VerificationForm = ({ disabled, host }: VerificationFormProps) => {
     }
 
     setUsername(newUsername);
-    setFormSubmitted(false);
   };
 
   const checkPubkey = (pubkey: string) => {
@@ -110,7 +107,6 @@ export const VerificationForm = ({ disabled, host }: VerificationFormProps) => {
     }
 
     setPubkey(newPubkey);
-    setFormSubmitted(false);
   };
 
   const handleVerification = () => {
@@ -121,7 +117,6 @@ export const VerificationForm = ({ disabled, host }: VerificationFormProps) => {
           setUsername("");
           setPubkey("");
           setFormSubmitted(true);
-          updateUsers();
         }
       });
     }
@@ -135,7 +130,7 @@ export const VerificationForm = ({ disabled, host }: VerificationFormProps) => {
             type="text"
             placeholder="your-name"
             maxLength={64}
-            disabled={formDisabled}
+            disabled={formDisabled || formSubmitted}
             value={username}
             onChange={handleUsername}
           />
@@ -149,13 +144,19 @@ export const VerificationForm = ({ disabled, host }: VerificationFormProps) => {
             type="text"
             placeholder="your public key in HEX format*"
             maxLength={64}
-            disabled={formDisabled}
+            disabled={formDisabled || formSubmitted}
             value={pubkey}
             onChange={handlePubkey}
           />
           <button
             type="button"
-            disabled={formDisabled || !!formError || !hasUsername || !hasPubkey}
+            disabled={
+              formDisabled ||
+              formSubmitted ||
+              !!formError ||
+              !hasUsername ||
+              !hasPubkey
+            }
             onClick={handleVerification}
           >
             verify
