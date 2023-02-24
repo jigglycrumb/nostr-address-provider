@@ -85,9 +85,11 @@ export const VerificationForm = ({ disabled, host }: VerificationFormProps) => {
   ) => {
     const inputValue = event.target.value.toLowerCase();
 
+    // update values
     if (field === "username") setUsername(inputValue);
     else if (field === "pubkey") setPubkey(inputValue);
 
+    // check username
     const usernameError = checkUsername(
       field === "username" ? inputValue : username
     );
@@ -96,14 +98,15 @@ export const VerificationForm = ({ disabled, host }: VerificationFormProps) => {
       return;
     }
 
+    // check pubkey
     const pubkeyError = checkPubkey(field === "pubkey" ? inputValue : pubkey);
     if (pubkeyError) {
       setFormError(pubkeyError);
+      return;
     }
 
-    if (!usernameError && !pubkeyError) {
-      setFormError(false);
-    }
+    // hide error message if everything looks good
+    setFormError(false);
   };
 
   const handleVerification = () => {
