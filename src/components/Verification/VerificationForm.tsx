@@ -45,68 +45,65 @@ export const VerificationForm = ({ disabled, host }: VerificationFormProps) => {
 
   const checkUsername = (username: string) => {
     if (username.length === 0) {
-      setFormError(false);
-      return;
+      return false;
     }
 
     const usernameFormat = /^[0-9a-z-_\.]{1,64}$/g;
     const isUsernameValid = usernameFormat.test(username);
 
     if (!isUsernameValid) {
-      setFormError(
-        "The username can only contain lowercase letters, numbers, _, - and ."
-      );
+      return "The username can only contain lowercase letters, numbers, _, - and .";
     } else if ((users as UserDict)[username]) {
-      setFormError("Sorry, this username is already taken.");
+      return "Sorry, this username is already taken.";
     } else {
-      setFormError(false);
+      return false;
     }
-  };
-
-  const handleUsername = (event: ChangeEvent<HTMLInputElement>) => {
-    const newUsername = event.target.value.toLowerCase();
-
-    if (newUsername.length === 0) {
-      setFormError(false);
-    } else {
-      checkUsername(newUsername);
-    }
-
-    setUsername(newUsername);
-    checkPubkey(pubkey);
   };
 
   const checkPubkey = (pubkey: string) => {
     if (pubkey.length === 0) {
-      setFormError(false);
-      return;
+      return false;
     }
 
     const pubkeyFormat = /^[0-9a-f]{1,64}$/g;
     const isPubkeyValid = pubkeyFormat.test(pubkey);
 
     if (!isPubkeyValid) {
-      setFormError("Please enter the HEX version of your public key.");
+      return "Please enter the HEX version of your public key.";
     } else if (pubkey.length !== 64) {
-      setFormError("Your public key should be 64 characters long.");
+      return "Your public key should be 64 characters long.";
     } else if (Object.values(users).includes(pubkey)) {
-      setFormError("Sorry, this pubkey is already taken.");
+      return "Sorry, this pubkey is already taken.";
     } else {
-      setFormError(false);
+      return false;
     }
   };
 
-  const handlePubkey = (event: ChangeEvent<HTMLInputElement>) => {
-    const newPubkey = event.target.value.toLowerCase();
+  const handleInput = (
+    field: "username" | "pubkey",
+    event: ChangeEvent<HTMLInputElement>
+  ) => {
+    const inputValue = event.target.value.toLowerCase();
 
-    if (newPubkey.length === 0) {
-      setFormError(false);
-    } else {
-      checkPubkey(newPubkey);
+    if (field === "username") setUsername(inputValue);
+    else if (field === "pubkey") setPubkey(inputValue);
+
+    const usernameError = checkUsername(
+      field === "username" ? inputValue : username
+    );
+    if (usernameError) {
+      setFormError(usernameError);
+      return;
     }
 
-    setPubkey(newPubkey);
-    checkUsername(username);
+    const pubkeyError = checkPubkey(field === "pubkey" ? inputValue : pubkey);
+    if (pubkeyError) {
+      setFormError(pubkeyError);
+    }
+
+    if (!usernameError && !pubkeyError) {
+      setFormError(false);
+    }
   };
 
   const handleVerification = () => {
@@ -132,7 +129,7 @@ export const VerificationForm = ({ disabled, host }: VerificationFormProps) => {
             maxLength={64}
             disabled={formDisabled || formSubmitted}
             value={username}
-            onChange={handleUsername}
+            onChange={event => handleInput("username", event)}
           />
           <label htmlFor="username">
             <strong>@{host}</strong>
@@ -146,7 +143,7 @@ export const VerificationForm = ({ disabled, host }: VerificationFormProps) => {
             maxLength={64}
             disabled={formDisabled || formSubmitted}
             value={pubkey}
-            onChange={handlePubkey}
+            onChange={event => handleInput("pubkey", event)}
           />
           <button
             type="button"
