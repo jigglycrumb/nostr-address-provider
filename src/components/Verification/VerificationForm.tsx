@@ -31,11 +31,13 @@ export const VerificationForm = ({ disabled, host }: VerificationFormProps) => {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [submittedUsername, setSubmittedUsername] = useState("");
 
-  useEffect(() => {
+  const updateUsers = () => {
     loadUsers().then(users => {
       setUsers(users);
     });
-  }, []);
+  };
+
+  useEffect(updateUsers, []);
 
   const formDisabled = !users || disabled;
   const hasUsername = username.length > 0;
@@ -74,6 +76,7 @@ export const VerificationForm = ({ disabled, host }: VerificationFormProps) => {
     }
 
     setUsername(newUsername);
+    setFormSubmitted(false);
   };
 
   const checkPubkey = (pubkey: string) => {
@@ -107,6 +110,7 @@ export const VerificationForm = ({ disabled, host }: VerificationFormProps) => {
     }
 
     setPubkey(newPubkey);
+    setFormSubmitted(false);
   };
 
   const handleVerification = () => {
@@ -117,6 +121,7 @@ export const VerificationForm = ({ disabled, host }: VerificationFormProps) => {
           setUsername("");
           setPubkey("");
           setFormSubmitted(true);
+          updateUsers();
         }
       });
     }
