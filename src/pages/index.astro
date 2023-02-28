@@ -6,23 +6,15 @@ import { UserCount } from '../components/UserCount.tsx';
 import Verification from '../components/Verification/Verification.astro';
 import Welcome from '../components/Welcome.astro';
 
-// set this to your domain name
-const host = "nostr.industries"
+import config from '../../site.config'
 
-// set this to your monthly costs
-const costsMonthly = "$4 USD"
-
-// set this to your donation LNURL
-const donationLNUrl = "LNURL1DP68GURN8GHJ7MR9VAJKUEPWD3HXY6T5WVHXXMMD9AKXUATJD3CZ7JMPVDV9YCC4FVREX"
-
-// set this to true to disable verification site-wide
-const disabled = false
+const { host, costsMonthly, donationLNUrl, verificationDisabled} = config
 ---
 
 <Layout title={`Welcome to ${host}`}>
 	<main>
 		<Welcome host={host} />
-		<Verification disabled={disabled} host={host} />
+		<Verification disabled={verificationDisabled} host={host} />
 		<KeyHint />
 		<UserCount client:load />
 		<Donation lnUrl={donationLNUrl} costsMonthly={costsMonthly} />
