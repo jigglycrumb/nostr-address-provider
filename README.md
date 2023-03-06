@@ -42,6 +42,6 @@ For more, check the Astro docs.
 
 ## Reaching out
 
-If you have questions, comments, complaints, etc hit me up on nostr:
+Questions, comments, complaints? Hit me up on nostr:
 
     npub1g9k2rya223yt3n9p7zty9qrhvhxqac5evz0ewt0sv9x0hr4z72csd8sezh
