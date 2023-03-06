@@ -5,7 +5,7 @@ A [NIP-05](https://github.com/nostr-protocol/nips/blob/master/05.md) verificatio
 ## Overview
 
 The project is a website built with [Astro](https://astro.build/).  
-The default setup is hosted on [Vercel](https://vercel.com/) and uses a [MongoDB](https://www.mongodb.com/) backend.  
+By default it is hosted on [Vercel](https://vercel.com/) and uses a [MongoDB](https://www.mongodb.com/) backend.  
 Both Vercel & MongoDB offer free plans which should be sufficient to run this.  
 You will still need a domain name if you want to offer this service on a TLD, though.
 
