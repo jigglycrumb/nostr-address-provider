@@ -3,8 +3,20 @@ import { loadUsers } from "../utils";
 
 const updateInterval = 30_000;
 
+const getUserCountMessage = (count: number | undefined) => {
+  if (count === 0)
+    return <strong>No verified users found. Be the first one!</strong>;
+  else if (count && count > 0)
+    return (
+      <div>
+        <strong>Total users verified: {count}</strong> 🎉
+      </div>
+    );
+  else return <strong>Loading…</strong>;
+};
+
 export const UserCount = () => {
-  const [userCount, setUserCount] = useState<boolean | number>(false);
+  const [userCount, setUserCount] = useState<undefined | number>();
 
   const updateUserCount = (users: Record<string, string>) => {
     const userCount = Object.keys(users).length;
@@ -27,13 +39,7 @@ export const UserCount = () => {
 
   return (
     <section className="box user-count">
-      {!userCount ? (
-        <strong>Loading…</strong>
-      ) : (
-        <div>
-          <strong>Total users verified: {userCount}</strong> 🎉
-        </div>
-      )}
+      {getUserCountMessage(userCount)}
     </section>
   );
 };
