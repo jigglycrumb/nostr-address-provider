@@ -11,25 +11,44 @@ You will still need a domain name if you want to offer this service on a TLD, th
 
 ## Setup
 
+### Prerequisites
+
 1. Fork this repository
-2. Sign up or login with Vercel and add the forked repo as a project.
-3. Set up your domain name with Vercel
-4. Add the MongoDB integration on Vercel and create your database  
-   Note: You might have to change your access control list and add 0.0.0.0/24 to allow access
-5. In your forked repository, create a file called `.env` with the following content:
-   `MONGODB_URI="mongodb+srv://<your connection link>"`  
-   (you get your connection link from MongoDB and/or Vercel)
-6. Edit `site.config.js` and set your domain, monthly costs and donation LNURL
-7. Commit & push
-8. Watch Vercel doing magic (don't blink, they are fast)
-9. Enjoy your new self-hosted NIP-05 verification service
-10. Announce it on nostr!
+
+### Vercel
+
+1. Sign up or login with Vercel and add the forked repo as a project.
+2. Go to `Settings -> Domains` and set up your domain name with Vercel
+3. Go to `Settings -> Integrations`  
+   Add the `MongoDB Atlas` integration on Vercel and create your cluster (see `MongoDB` below)
+4. Go to `Settings -> Environment Variables` and check if the `MONGODB_URI` has been added. This variable is needed to connect to the database.
+
+### MongoDB
+
+1.  When asked `Where would you like to connect from?` during setup, choose `Cloud Environment`, then `IP Access List` and add `0.0.0.0/0` to allow access from everywhere.
+
+2.  Select your cluster, open the tab `Collections` and choose `Add My Own Data`.
+    Enter `verification` as database name, `names` as collection name and create the database.
+
+### Final touches
+
+1. Edit `site.config.js` and set your domain, monthly costs and donation LNURL
+2. Commit & push
+3. Watch Vercel doing magic (don't blink, they are fast)
+4. Enjoy your new self-hosted NIP-05 verification service
+5. Announce it on nostr!
 
 ## Development
 
 Everything is by Astro standards.
 
-To run locally:
+To run the page locally, you'll have to create a file called `.env` in the project root and add your MongoDB connection string:
+
+`MONGODB_URI="mongodb+srv://<your connection link>"`
+
+You can get your connection link from MongoDB and/or Vercel.
+
+To start the local server, run:
 
     node run dev
 
