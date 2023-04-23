@@ -41,7 +41,7 @@ You will still need a domain name if you want to offer this service on a TLD, th
 
 ### Tools
 
-Simple tools for importing and exporting are included.  
+Basic tools for importing and exporting are included.  
 [Check the README](https://github.com/jigglycrumb/nostr-verify/blob/main/src/pages/_tools/README.md) for more information.
 
 ## Development
