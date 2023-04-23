@@ -7,7 +7,6 @@ import config from "../../../site.config";
 import nostr from "./nostr.json" assert { type: "json" };
 
 // Connection URL
-// @ts-expect-error Astro doesn't recognize env
 const dbUrl = import.meta.env.MONGODB_URI;
 const client = new MongoClient(dbUrl);
 const { dbName, dbCollection } = config;
