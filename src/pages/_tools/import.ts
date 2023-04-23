@@ -1,13 +1,15 @@
 import type { APIRoute } from "astro";
 import { MongoClient } from "mongodb";
+
+import config from "../../../site.config";
+
 // @ts-expect-error this file only exists when added by the user
-import nostr from "../../import/nostr.json" assert { type: "json" };
+import nostr from "./nostr.json" assert { type: "json" };
 
 // Connection URL
 const url = import.meta.env.MONGODB_URI;
 const client = new MongoClient(url);
-const dbName = "verification";
-const dbCollection = "names";
+const { dbName, dbCollection } = config;
 
 export const get: APIRoute = async function get() {
   await client.connect();
