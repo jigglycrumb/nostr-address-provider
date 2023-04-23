@@ -1,5 +1,6 @@
 import type { APIRoute } from "astro";
 import { MongoClient } from "mongodb";
+// @ts-expect-error this file only exists when added by the user
 import nostr from "../../import/nostr.json" assert { type: "json" };
 
 // Connection URL
