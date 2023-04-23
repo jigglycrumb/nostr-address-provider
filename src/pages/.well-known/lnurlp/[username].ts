@@ -22,9 +22,10 @@ export const get: APIRoute = async function get({ params }) {
   const { lightningAddress } = findResult?.[0] ?? {};
 
   if (!lightningAddress) {
-    return {
-      body: JSON.stringify("not found"),
-    };
+    return new Response(null, {
+      status: 404,
+      statusText: "Not found",
+    });
   }
 
   const [redirectUsername, redirectDomain] = lightningAddress.split("@");
