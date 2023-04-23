@@ -1,5 +1,6 @@
 # build output
 .output/
+.vercel/
 
 # dependencies
 node_modules/
