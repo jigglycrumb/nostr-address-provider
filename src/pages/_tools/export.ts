@@ -1,20 +1,21 @@
 import type { APIRoute } from "astro";
 import { MongoClient } from "mongodb";
 
+import config from "../../../site.config";
+
 // Connection URL
 const url = import.meta.env.MONGODB_URI;
 const client = new MongoClient(url);
-const dbName = "verification";
-const dbCollection = "names";
+const { dbName, dbCollection } = config;
 
-export const get: APIRoute = async function get({ params, request }) {
+export const get: APIRoute = async function get() {
   await client.connect();
   const db = client.db(dbName);
   const collection = db.collection(dbCollection);
   const findResult = await collection.find({}).toArray();
   const userMap: Record<string, string> = {};
 
-  findResult.forEach(entry => {
+  findResult.forEach((entry) => {
     userMap[entry.username] = entry.pubkey;
   });
 

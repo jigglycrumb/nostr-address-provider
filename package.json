@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro build",
+    "build": "astro check && tsc --noEmit && astro build",
+    "check": "astro check && tsc --noEmit",
     "preview": "astro preview",
     "astro": "astro"
   },
