@@ -4,8 +4,8 @@ import { MongoClient } from "mongodb";
 import config from "../../../site.config";
 
 // Connection URL
-const url = import.meta.env.MONGODB_URI;
-const client = new MongoClient(url);
+const dbUrl = import.meta.env.MONGODB_URI;
+const client = new MongoClient(dbUrl);
 const { dbName, dbCollection } = config;
 
 export const get: APIRoute = async function get({ request }) {
