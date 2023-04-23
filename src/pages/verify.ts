@@ -1,11 +1,12 @@
 import type { APIRoute } from "astro";
 import { MongoClient } from "mongodb";
 
+import config from "../../site.config";
+
 // Connection URL
 const url = import.meta.env.MONGODB_URI;
 const client = new MongoClient(url);
-const dbName = "verification";
-const dbCollection = "names";
+const { dbName, dbCollection } = config;
 
 export const post: APIRoute = async function post({ request }) {
   if (request.headers.get("Content-Type") === "application/json") {
