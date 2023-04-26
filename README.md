@@ -1,6 +1,6 @@
 # nostr-verify
 
-A [NIP-05](https://github.com/nostr-protocol/nips/blob/master/05.md) verification service for [nostr](https://github.com/nostr-protocol/nostr).
+A web based [NIP-05](https://github.com/nostr-protocol/nips/blob/master/05.md) handle service for [nostr](https://github.com/nostr-protocol/nostr).
 
 ## Overview
 
@@ -36,7 +36,7 @@ You will still need a domain name if you want to offer this service on a TLD, th
 1. Edit `site.config.ts` and set your domain, monthly costs and donation LNURL
 2. Commit & push
 3. Watch Vercel doing magic (don't blink, they are fast)
-4. Enjoy your new self-hosted NIP-05 verification service
+4. Enjoy your new self-hosted NIP-05 handle service
 5. Announce it on nostr!
 
 ### Tools

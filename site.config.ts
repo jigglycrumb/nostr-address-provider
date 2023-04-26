@@ -2,8 +2,11 @@ export default {
   // set this to your domain name
   host: "nostr.industries",
 
-  // set this to true to disable verification site-wide
-  verificationDisabled: false,
+  // set this to true to disable registration site-wide
+  registrationDisabled: false,
+
+  // site slogan
+  slogan: "Free NIP-05 handles for nostr.",
 
   // set this to your monthly costs
   costsMonthly: "$4 USD",
