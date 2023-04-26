@@ -1,4 +1,4 @@
-# nostr-verify
+# nostr-handle-provider
 
 A web based [NIP-05](https://github.com/nostr-protocol/nips/blob/master/05.md) handle service for [nostr](https://github.com/nostr-protocol/nostr).
 
