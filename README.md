@@ -28,7 +28,7 @@ You will still need a domain name if you want to offer this service on a TLD, th
 1.  When asked `Where would you like to connect from?` during setup, choose `Cloud Environment`, then `IP Access List` and add `0.0.0.0/0` to allow access from everywhere.
 
 2.  Select your cluster, open the tab `Collections` and choose `Add My Own Data`.
-    Enter `verification` as database name, `names` as collection name and create the database.  
+    Enter `users` as database name, `registered` as collection name and create the database.  
     If you want to choose different names, you can do so. In this case, update the corresponding values in `site.config.ts` (see `Final touches` below).
 
 ### Final touches
