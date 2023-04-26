@@ -3,21 +3,29 @@ import Layout from '../layouts/Layout.astro';
 import Donation from '../components/Donation.astro';
 import KeyHint from '../components/KeyHint.astro'
 import { UserCount } from '../components/UserCount.tsx';
-import Verification from '../components/Verification/Verification.astro';
+import Registration from '../components/Registration/Registration.astro';
 import Welcome from '../components/Welcome.astro';
+import Footer from '../components/Footer.astro';
 
 import config from '../../site.config'
 
-const { host, costsMonthly, donationLNUrl, verificationDisabled} = config
+const {
+	host,
+	costsMonthly,
+	donationLNUrl,
+	registrationDisabled,
+	slogan
+} = config
 ---
 
 <Layout title={`Welcome to ${host}`}>
 	<main>
-		<Welcome host={host} />
-		<Verification disabled={verificationDisabled} host={host} />
+		<Welcome host={host} slogan={slogan} />
+		<Registration disabled={registrationDisabled} host={host} />
 		<KeyHint />
 		<UserCount client:load />
 		<Donation lnUrl={donationLNUrl} costsMonthly={costsMonthly} />
+		<Footer />
 	</main>
 </Layout>
 

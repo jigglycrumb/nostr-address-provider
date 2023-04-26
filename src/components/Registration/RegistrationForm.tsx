@@ -1,8 +1,8 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { loadUsers } from "../../utils";
-import { VerificationSuccess } from "./VerificationSuccess";
+import { RegistrationSuccess } from "./RegistrationSuccess";
 
-type VerificationFormProps = {
+type RegistrationFormProps = {
   disabled: boolean;
   host: string;
 };
@@ -17,12 +17,12 @@ const submitForm = async (username: string, pubkey: string) => {
     },
     body: JSON.stringify({ username, pubkey }),
   };
-  const response = await fetch("/verify", options);
+  const response = await fetch("/register", options);
   const json = await response.json();
   return json;
 };
 
-export const VerificationForm = ({ disabled, host }: VerificationFormProps) => {
+export const RegistrationForm = ({ disabled, host }: RegistrationFormProps) => {
   const [users, setUsers] = useState<boolean | UserDict>(false);
   const [username, setUsername] = useState("");
   const [pubkey, setPubkey] = useState("");
@@ -32,7 +32,7 @@ export const VerificationForm = ({ disabled, host }: VerificationFormProps) => {
   const [submittedUsername, setSubmittedUsername] = useState("");
 
   useEffect(() => {
-    loadUsers().then(users => {
+    loadUsers().then((users) => {
       setUsers(users);
     });
   }, []);
@@ -109,9 +109,9 @@ export const VerificationForm = ({ disabled, host }: VerificationFormProps) => {
     setFormError(false);
   };
 
-  const handleVerification = () => {
+  const handleRegistration = () => {
     if (hasUsername && hasPubkey) {
-      submitForm(username, pubkey).then(response => {
+      submitForm(username, pubkey).then((response) => {
         if (response.success) {
           setSubmittedUsername(username);
           setUsername("");
@@ -124,7 +124,7 @@ export const VerificationForm = ({ disabled, host }: VerificationFormProps) => {
 
   return (
     <>
-      <form className="box verify-form">
+      <form className="box registration-form">
         <div>
           <input
             type="text"
@@ -132,7 +132,7 @@ export const VerificationForm = ({ disabled, host }: VerificationFormProps) => {
             maxLength={64}
             disabled={formDisabled || formSubmitted}
             value={username}
-            onChange={event => handleInput("username", event)}
+            onChange={(event) => handleInput("username", event)}
           />
           <label htmlFor="username">
             <strong>@{host}</strong>
@@ -146,7 +146,7 @@ export const VerificationForm = ({ disabled, host }: VerificationFormProps) => {
             maxLength={64}
             disabled={formDisabled || formSubmitted}
             value={pubkey}
-            onChange={event => handleInput("pubkey", event)}
+            onChange={(event) => handleInput("pubkey", event)}
           />
           <button
             type="button"
@@ -157,18 +157,18 @@ export const VerificationForm = ({ disabled, host }: VerificationFormProps) => {
               !hasUsername ||
               !hasPubkey
             }
-            onClick={handleVerification}
+            onClick={handleRegistration}
           >
-            verify
+            register
           </button>
         </div>
       </form>
 
       {showFormResult && (
-        <div className="box verify-result">
+        <div className="box registration-result">
           {formError && <div className="error">{formError}</div>}
           {formSubmitted && (
-            <VerificationSuccess username={submittedUsername} host={host} />
+            <RegistrationSuccess username={submittedUsername} host={host} />
           )}
         </div>
       )}
