@@ -10,7 +10,7 @@ const { title } = Astro.props;
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
     <link rel="icon" type="image/png" href="/favicon.png" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
@@ -94,24 +94,24 @@ const { title } = Astro.props;
     display: grid;
   }
 
-  .verify-form {
+  .registration-form {
     grid-row-gap: 1rem;
     margin: 2rem 0 1rem 0;
   }
 
-  .verify-form>div {
+  .registration-form>div {
     display: grid;
     grid-template-columns: 60% 40%;
     grid-gap: 1ch;
     align-items: center;
   }
 
-  .verify-result {
+  .registration-result {
     grid-row-gap: 0;
     margin: 1rem 0;
   }
 
-  .verify-success p {
+  .registration-success p {
     margin: 0 0 1rem 0;
   }
 
@@ -119,18 +119,16 @@ const { title } = Astro.props;
     margin-top: 3rem;
   }
 
-  .mini-badge {
-    position: relative;
-    top: 4px;
-    width: 20px;
-    margin-left: 0.5ch;
-  }
-
   .copy-wrapper {
     cursor: pointer;
     position: relative;
   }
 
+  .copy-wrapper.nip-05 {
+    margin-top: 1rem;
+  }
+
+  /* styles for the "Copied!" success animation */
   .copy-wrapper .success {
     position: absolute;
     width: 100px;

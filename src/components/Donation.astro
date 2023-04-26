@@ -1,5 +1,4 @@
 ---
-// import QRCode from "react-qr-code";
 import { CopyWrapper } from './CopyWrapper.tsx'
 import { AstroQRCode } from './AstroQRCode.tsx';
 export interface Props {
@@ -37,9 +36,10 @@ const { lnUrl, costsMonthly } = Astro.props
 
 <style>
   .donation {
+    border-top: 1px solid rgb(var(--accent));
     display: block;
     margin-top: 3rem;
-    border-top: 1px solid rgb(var(--accent));
+    padding-top: 1rem;
   }
 
   .or {
@@ -48,8 +48,10 @@ const { lnUrl, costsMonthly } = Astro.props
   }
 
   code {
-    font-size: 0.75em;
     display: block;
+    font-size: 0.75em;
+    overflow: hidden;
     text-align: center;
+    text-overflow: ellipsis;
   }
 </style>

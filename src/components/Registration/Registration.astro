@@ -1,0 +1,13 @@
+---
+import RegistrationDisabled from "./RegistrationDisabled.astro";
+import { RegistrationForm } from "./RegistrationForm.tsx";
+
+export interface Props {
+	disabled: boolean;
+  host: string;
+}
+
+const { disabled, host } = Astro.props
+---
+<RegistrationForm disabled={disabled} host={host} client:load />
+{disabled && <RegistrationDisabled />}

@@ -1,6 +1,6 @@
 # nostr-verify
 
-A [NIP-05](https://github.com/nostr-protocol/nips/blob/master/05.md) verification service for [nostr](https://github.com/nostr-protocol/nostr).
+A web based [NIP-05](https://github.com/nostr-protocol/nips/blob/master/05.md) handle service for [nostr](https://github.com/nostr-protocol/nostr).
 
 ## Overview
 
@@ -28,7 +28,7 @@ You will still need a domain name if you want to offer this service on a TLD, th
 1.  When asked `Where would you like to connect from?` during setup, choose `Cloud Environment`, then `IP Access List` and add `0.0.0.0/0` to allow access from everywhere.
 
 2.  Select your cluster, open the tab `Collections` and choose `Add My Own Data`.
-    Enter `verification` as database name, `names` as collection name and create the database.  
+    Enter `users` as database name, `registered` as collection name and create the database.  
     If you want to choose different names, you can do so. In this case, update the corresponding values in `site.config.ts` (see `Final touches` below).
 
 ### Final touches
@@ -36,7 +36,7 @@ You will still need a domain name if you want to offer this service on a TLD, th
 1. Edit `site.config.ts` and set your domain, monthly costs and donation LNURL
 2. Commit & push
 3. Watch Vercel doing magic (don't blink, they are fast)
-4. Enjoy your new self-hosted NIP-05 verification service
+4. Enjoy your new self-hosted NIP-05 handle service
 5. Announce it on nostr!
 
 ### Tools

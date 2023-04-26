@@ -1,21 +1,24 @@
 ---
 export interface Props {
 	host: string;
+	slogan?: string;
 }
 
-const { host } = Astro.props
+const { host, slogan } = Astro.props
 ---
 
 <header>
   <div>
     <h1>Welcome to <span class="text-gradient">{host}</span></h1>
 
-    <h3 class="text-gradient">
-      Verify your Nostr username, for free.
-    </h3>
+    {slogan && (
+			<h3 class="text-gradient">
+				{slogan}
+			</h3>
+		)}
   </div>
 
-  <img src="favicon.png" alt="verification badge" />
+  <img src="favicon.png" alt="checkmark badge" />
 </header>
 
 <style>
@@ -32,6 +35,10 @@ const { host } = Astro.props
 		font-size: 3rem;
 		font-weight: 800;
 		margin: 0;
+	}
+
+	h3 {
+		margin-bottom: 0;
 	}
 
   img {
