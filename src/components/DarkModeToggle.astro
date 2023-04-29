@@ -6,6 +6,8 @@
 </div>
 
 <script>
+import { ChangeEvent } from "react"
+
   const updateBody = (darkMode: boolean) => {
     const body = document.body
     if(darkMode) {
@@ -16,13 +18,14 @@
     }
   }
 
-  const toggle = document.querySelector('.dark-mode-toggle-input')
+  const toggle: HTMLInputElement | null = document.querySelector('.dark-mode-toggle-input')
 
   // handle toggle change
   toggle?.addEventListener('change', (event) => {
     // update localstorage
+    // @ts-expect-error untyped event target
     const isDarkMode = !event?.target?.checked ?? true
-    localStorage.setItem('darkMode', isDarkMode)
+    localStorage.setItem('darkMode', `${isDarkMode}`)
 
     // update body class
     updateBody(isDarkMode)
@@ -31,7 +34,9 @@
   // initially check checkbox
   const userPrefersDarkMode = window.matchMedia("(prefers-color-scheme:dark)").matches;
   const isDarkMode = localStorage.getItem('darkMode') === "true" || userPrefersDarkMode
-  toggle.checked = !isDarkMode
+  if(toggle) {
+    toggle.checked = !isDarkMode
+  }
 
   // initiall update body
   updateBody(isDarkMode)
