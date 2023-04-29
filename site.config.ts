@@ -1,17 +1,17 @@
 export default {
-  // set this to your domain name
+  // your domain name
   host: "nostr.industries",
 
-  // set this to true to disable registration site-wide
+  // set to true to disable registration site-wide
   registrationDisabled: false,
 
   // site slogan
-  slogan: "Free NIP-05 handles for nostr.",
+  slogan: "Free nostr addresses.",
 
-  // set this to your monthly costs
+  // your monthly costs
   costsMonthly: "$4 USD",
 
-  // set this to your donation LNURL
+  // your donation LNURL
   donationLNUrl:
     "LNURL1DP68GURN8GHJ7MR9VAJKUEPWD3HXY6T5WVHXXMMD9AKXUATJD3CZ7JMPVDV9YCC4FVREX",
 
