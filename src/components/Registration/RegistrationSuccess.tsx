@@ -9,7 +9,7 @@ export const RegistrationSuccess = ({
   username,
   host,
 }: RegistrationSuccessProps) => {
-  const handle = `${username}@${host}`;
+  const address = `${username}@${host}`;
 
   return (
     <div className="registration-success">
@@ -17,10 +17,10 @@ export const RegistrationSuccess = ({
         <strong>Your registration was successful!</strong>
       </p>
       <p>
-        This is your NIP-05 handle:
-        <CopyWrapper text={handle} className="nip-05">
+        This is your nostr address:
+        <CopyWrapper text={address} className="nip-05">
           <div className="box copy-box">
-            <strong>{handle}</strong>
+            <strong>{address}</strong>
             <button>
               <img src="images/copy-icon.svg" />
             </button>
@@ -28,9 +28,8 @@ export const RegistrationSuccess = ({
         </CopyWrapper>
       </p>
       <p>
-        Copy that handle into the{" "}
-        <span className="text-gradient">NIP-05 identifier</span> field of your
-        nostr profile and save.
+        Copy that address into the <span className="text-gradient">NIP-05</span>{" "}
+        field of your nostr profile and save.
       </p>
     </div>
   );

@@ -1,9 +1,10 @@
-# nostr-handle-provider
+# nostr-address-provider
 
-A web based [NIP-05](https://github.com/nostr-protocol/nips/blob/master/05.md) handle service for [nostr](https://github.com/nostr-protocol/nostr).
+A web based [nostr](https://github.com/nostr-protocol/nostr) address ([NIP-05](https://github.com/nostr-protocol/nips/blob/master/05.md)) provider service.
 
 ## Overview
 
+s
 The project is a website built with [Astro](https://astro.build/).  
 By default it is hosted on [Vercel](https://vercel.com/) and uses a [MongoDB](https://www.mongodb.com/) backend.  
 Both Vercel & MongoDB offer free plans which should be sufficient to run this.  
@@ -36,7 +37,7 @@ You will still need a domain name if you want to offer this service on a TLD, th
 1. Edit `site.config.ts` and set your domain, monthly costs and donation LNURL
 2. Commit & push
 3. Watch Vercel doing magic (don't blink, they are fast)
-4. Enjoy your new self-hosted NIP-05 handle service
+4. Enjoy your new nostr address service
 5. Announce it on nostr!
 
 ### Tools
