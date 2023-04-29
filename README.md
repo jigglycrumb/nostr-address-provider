@@ -1,10 +1,9 @@
 # nostr-address-provider
 
-A web based [nostr](https://github.com/nostr-protocol/nostr) address ([NIP-05](https://github.com/nostr-protocol/nips/blob/master/05.md)) provider service.
+Web based [nostr](https://github.com/nostr-protocol/nostr) address ([NIP-05](https://github.com/nostr-protocol/nips/blob/master/05.md)) provider service.
 
 ## Overview
 
-s
 The project is a website built with [Astro](https://astro.build/).  
 By default it is hosted on [Vercel](https://vercel.com/) and uses a [MongoDB](https://www.mongodb.com/) backend.  
 Both Vercel & MongoDB offer free plans which should be sufficient to run this.  
