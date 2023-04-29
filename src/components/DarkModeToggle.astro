@@ -1,0 +1,114 @@
+<div class="dark-mode-toggle">
+  <label>
+    <input class="dark-mode-toggle-input" type="checkbox" />
+    <span class="slider" />
+  </label>
+</div>
+
+<script>
+import { ChangeEvent } from "react"
+
+  const updateBody = (darkMode: boolean) => {
+    const body = document.body
+    if(darkMode) {
+      body.classList.add('dark-mode')
+    }
+    else {
+      body.classList.remove('dark-mode')
+    }
+  }
+
+  const toggle: HTMLInputElement | null = document.querySelector('.dark-mode-toggle-input')
+
+  // handle toggle change
+  toggle?.addEventListener('change', (event) => {
+    // update localstorage
+    // @ts-expect-error untyped event target
+    const isDarkMode = !event?.target?.checked ?? true
+    localStorage.setItem('darkMode', `${isDarkMode}`)
+
+    // update body class
+    updateBody(isDarkMode)
+  })
+
+  // initially check checkbox
+  const userPrefersDarkMode = window.matchMedia("(prefers-color-scheme:dark)").matches;
+  const isDarkMode = localStorage.getItem('darkMode') === "true" || userPrefersDarkMode
+  if(toggle) {
+    toggle.checked = !isDarkMode
+  }
+
+  // initiall update body
+  updateBody(isDarkMode)
+</script>
+
+<style>
+  :root {
+    --light: #fbe377;
+    --background: #ffffff;
+    --moon-grey: #717171;
+  }
+
+  .dark-mode-toggle {
+    position: relative;
+    width: 200px;
+    zoom: 0.25;
+  }
+
+  label {
+    position: absolute;
+    width: 100%;
+    height: 100px;
+    background-color: var(--background);
+    border-radius: 50px;
+    cursor: pointer;
+    border: 4px solid rgba(var(--accent), 25%);
+  }
+
+  input {
+    position: absolute;
+    display: none;
+  }
+
+  .slider {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50px;
+    transition: 0.3s;
+  }
+
+  .slider::before {
+    content: "";
+    position: absolute;
+    top: 13px;
+    left: 16px;
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    box-shadow: inset 18px -4px 0px 0px var(--light);
+    background-color: var(--moon-grey);
+    transition: 0.3s;
+
+    /* content: "´ω`";
+    justify-content: center;
+    color: #303030;
+    font-size: 35px;
+    display: flex;
+    align-items: center;
+    font-weight: bold; */
+  }
+
+  input:checked ~ .slider::before {
+    transform: translateX(95px);
+    background-color: var(--light);
+    box-shadow: none;
+
+    /* content: "°◡°";
+    justify-content: center;
+    font-size: 35px;
+    display: flex;
+    align-items: center;
+    font-weight: bold; */
+  }
+</style>

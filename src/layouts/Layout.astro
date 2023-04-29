@@ -20,6 +20,7 @@ const { title } = Astro.props;
   </body>
 </html>
 <style is:global>
+  @import url('/dark-mode.scss');
   :root {
     --accent: 124, 58, 237;
     --accent-gradient: linear-gradient(45deg, rgb(var(--accent)), #da62c4 30%, white 60%);
@@ -29,6 +30,10 @@ const { title } = Astro.props;
     font-family: system-ui, sans-serif;
     background-color: #F6F6F6;
     color: var(--text);
+  }
+
+  body {
+    margin: 0;
   }
 
   code, .copy-input {

@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import DarkModeToggle from '../components/DarkModeToggle.astro';
 import Donation from '../components/Donation.astro';
 import KeyHint from '../components/KeyHint.astro'
 import { UserCount } from '../components/UserCount.tsx';
@@ -20,6 +21,9 @@ const {
 
 <Layout title={`Welcome to ${host}`}>
 	<main>
+		<div class="dark-mode-toggle-container">
+      <DarkModeToggle />
+    </div>
 		<Welcome host={host} slogan={slogan} />
 		<Registration disabled={registrationDisabled} host={host} />
 		<KeyHint />
@@ -35,4 +39,12 @@ const {
 		padding: 1.5rem;
 		max-width: 60ch;
 	}
+
+  .dark-mode-toggle-container {
+    display: flex;
+    height: 28px;
+    justify-content: flex-end;
+		margin-bottom: 2rem;
+  }
+
 </style>
