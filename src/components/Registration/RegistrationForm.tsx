@@ -1,5 +1,6 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { loadUsers } from "../../utils";
+import { Toggle } from "../Toggle";
 import { RegistrationSuccess } from "./RegistrationSuccess";
 
 type RegistrationFormProps = {
@@ -9,13 +10,17 @@ type RegistrationFormProps = {
 
 type UserDict = Record<string, string>;
 
-const submitForm = async (username: string, pubkey: string) => {
+const submitForm = async (
+  username: string,
+  pubkey: string,
+  lightningAddress: string
+) => {
   const options = {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ username, pubkey }),
+    body: JSON.stringify({ username, pubkey, lightningAddress }),
   };
   const response = await fetch("/register", options);
   const json = await response.json();
@@ -26,6 +31,8 @@ export const RegistrationForm = ({ disabled, host }: RegistrationFormProps) => {
   const [users, setUsers] = useState<boolean | UserDict>(false);
   const [username, setUsername] = useState("");
   const [pubkey, setPubkey] = useState("");
+  const [lightningAddress, setLightningAddress] = useState("");
+  const [lightningAddressVisible, setLightningAddressVisible] = useState(false);
 
   const [formError, setFormError] = useState<boolean | string>(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
@@ -80,7 +87,7 @@ export const RegistrationForm = ({ disabled, host }: RegistrationFormProps) => {
   };
 
   const handleInput = (
-    field: "username" | "pubkey",
+    field: "username" | "pubkey" | "lightningAddress",
     event: ChangeEvent<HTMLInputElement>
   ) => {
     const inputValue = event.target.value.toLowerCase();
@@ -88,6 +95,9 @@ export const RegistrationForm = ({ disabled, host }: RegistrationFormProps) => {
     // update values
     if (field === "username") setUsername(inputValue);
     else if (field === "pubkey") setPubkey(inputValue);
+    else if (field === "lightningAddress") {
+      setLightningAddress(inputValue);
+    }
 
     // check username
     const usernameError = checkUsername(
@@ -111,11 +121,12 @@ export const RegistrationForm = ({ disabled, host }: RegistrationFormProps) => {
 
   const handleRegistration = () => {
     if (hasUsername && hasPubkey) {
-      submitForm(username, pubkey).then((response) => {
+      submitForm(username, pubkey, lightningAddress).then((response) => {
         if (response.success) {
           setSubmittedUsername(username);
           setUsername("");
           setPubkey("");
+          setLightningAddress("");
           setFormSubmitted(true);
         }
       });
@@ -128,26 +139,62 @@ export const RegistrationForm = ({ disabled, host }: RegistrationFormProps) => {
         <div>
           <input
             type="text"
-            placeholder="your-name"
-            maxLength={64}
-            disabled={formDisabled || formSubmitted}
-            value={username}
-            onChange={(event) => handleInput("username", event)}
-          />
-          <label htmlFor="username">
-            <strong>@{host}</strong>
-          </label>
-        </div>
-
-        <div>
-          <input
-            type="text"
             placeholder="your public key in HEX format*"
             maxLength={64}
             disabled={formDisabled || formSubmitted}
             value={pubkey}
             onChange={(event) => handleInput("pubkey", event)}
           />
+        </div>
+
+        <div className="address">
+          <input
+            type="text"
+            placeholder="your-name"
+            maxLength={64}
+            disabled={formDisabled || formSubmitted}
+            value={username}
+            onChange={(event) => handleInput("username", event)}
+          />
+          <label>
+            <strong>@{host}</strong>
+          </label>
+        </div>
+
+        <div>
+          <Toggle
+            id="lightning-address-redirect"
+            label="Use as lightning address"
+            isOn={lightningAddressVisible}
+            onChange={(event) =>
+              setLightningAddressVisible(event.target.checked)
+            }
+          />
+        </div>
+
+        {lightningAddressVisible && (
+          <>
+            <div>
+              <small>
+                Enter your existing lightning address to enable redirection.{" "}
+                <br />
+                You can then use you nostr address as your lightning address.
+              </small>
+            </div>
+            <div>
+              <input
+                type="text"
+                placeholder="janedoe69@walletofsatoshi.com"
+                maxLength={64}
+                disabled={formDisabled || formSubmitted}
+                value={lightningAddress}
+                onChange={(event) => handleInput("lightningAddress", event)}
+              />
+            </div>
+          </>
+        )}
+
+        <div>
           <button
             type="button"
             disabled={
