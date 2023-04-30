@@ -2,7 +2,9 @@
 
 Web based [nostr](https://github.com/nostr-protocol/nostr) address ([NIP-05](https://github.com/nostr-protocol/nips/blob/master/05.md)) provider service.
 
-## Overview
+Users can enter their exisiting lightning address when registering and then use their nostr address as lightning address.
+
+## Tech
 
 The project is a website built with [Astro](https://astro.build/).  
 By default it is hosted on [Vercel](https://vercel.com/) and uses a [MongoDB](https://www.mongodb.com/) backend.  
