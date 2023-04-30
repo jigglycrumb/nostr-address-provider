@@ -26,4 +26,8 @@ body.dark-mode {
       background-color: #bbbbbb;
     }
   }
+
+  & .toggle input:checked+label {
+    background: #5c7800;
+  }
 }
