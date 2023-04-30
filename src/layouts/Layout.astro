@@ -20,7 +20,7 @@ const { title } = Astro.props;
   </body>
 </html>
 <style is:global>
-  @import url('/dark-mode.scss');
+  @import url('/dark-mode.css');
   :root {
     --accent: 124, 58, 237;
     --accent-gradient: linear-gradient(45deg, rgb(var(--accent)), #da62c4 30%, white 60%);
@@ -216,37 +216,30 @@ const { title } = Astro.props;
     cursor: pointer;
   }
 
-  .toggle {
-    zoom: 0.25;
-  }
-
   .toggle input[type=checkbox] {
-    height: 0;
-    width: 0;
-    visibility: hidden;
+    display: none;
   }
 
   .toggle label {
     cursor: pointer;
     text-indent: -9999px;
-    width: 200px;
-    height: 100px;
+    width: 50px;
+    height: 25px;
     background: #cccccc;
     display: block;
-    border-radius: 100px;
+    border-radius: 25px;
     position: relative;
-    top: -12px;
   }
 
   .toggle label:after {
     content: '';
     position: absolute;
-    top: 5px;
-    left: 5px;
-    width: 90px;
-    height: 90px;
+    top: 1px;
+    left: 1px;
+    width: 23px;
+    height: 23px;
     background: #fff;
-    border-radius: 90px;
+    border-radius: 23px;
     transition: 0.3s;
   }
 
@@ -255,12 +248,12 @@ const { title } = Astro.props;
   }
 
   .toggle input:checked + label:after {
-    left: calc(100% - 5px);
+    left: calc(100% - 1px);
     transform: translateX(-100%);
   }
 
   .toggle label:active:after {
-    width: 130px;
+    width: 32px;
   }
 
 </style>
