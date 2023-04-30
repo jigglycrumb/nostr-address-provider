@@ -10,7 +10,7 @@ type ToggleProps = {
 export const Toggle = ({ id, label, isOn = false, onChange }: ToggleProps) => {
   return (
     <div className="toggle-container">
-      <span>{label}</span>
+      <label htmlFor={id}>{label}</label>
 
       <span className="toggle">
         <input type="checkbox" id={id} checked={isOn} onChange={onChange} />
