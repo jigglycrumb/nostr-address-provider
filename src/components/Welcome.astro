@@ -9,7 +9,7 @@ const { host, slogan } = Astro.props
 
 <header>
   <div>
-    <h1>Welcome to <span class="text-gradient">{host}</span></h1>
+    <h1>Welcome to <div class="text-gradient">{host}</div></h1>
 
     {slogan && (
 			<h3 class="text-gradient">
@@ -18,7 +18,7 @@ const { host, slogan } = Astro.props
 		)}
   </div>
 
-  <img src="favicon.png" alt="checkmark badge" />
+  <img src="favicon.png" alt="website icon" />
 </header>
 
 <style>
