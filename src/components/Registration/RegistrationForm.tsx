@@ -164,7 +164,7 @@ export const RegistrationForm = ({ disabled, host }: RegistrationFormProps) => {
         <div>
           <Toggle
             id="lightning-address-redirect"
-            label="Use as lightning address"
+            label="use as lightning address"
             isOn={lightningAddressVisible}
             onChange={(event) =>
               setLightningAddressVisible(event.target.checked)
