@@ -1,0 +1,33 @@
+body.dark-mode {
+  background-color: #111111;
+  color: #bbbbbb;
+}
+
+body.dark-mode .dark-mode-toggle label {
+  background-color: #333333;
+}
+
+body.dark-mode .box {
+  background-color: #333333;
+}
+
+body.dark-mode input {
+  background-color: #444444;
+  color: #ffffff;
+}
+
+body.dark-mode input::placeholder {
+  color: #aaaaaa;
+}
+
+body.dark-mode .toggle label {
+  background-color: #444444;
+}
+
+body.dark-mode .toggle label:after {
+  background-color: #bbbbbb;
+}
+
+body.dark-mode .toggle input:checked+label {
+  background: #5c7800;
+}
