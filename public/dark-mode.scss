@@ -18,4 +18,12 @@ body.dark-mode {
       color: #aaaaaa;
     }
   }
+
+  & .toggle label {
+    background-color: #444444;
+
+    &:after {
+      background-color: #bbbbbb;
+    }
+  }
 }

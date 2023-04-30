@@ -12,7 +12,7 @@ export const post: APIRoute = async function post({ request }) {
   if (request.headers.get("Content-Type") === "application/json") {
     let hasError = false;
     const body = await request.json();
-    const { username, pubkey } = body;
+    const { username, pubkey, lightningAddress } = body;
 
     const usernameFormat = /^[0-9a-z-_\.]{1,64}$/g;
     const isUsernameValid = usernameFormat.test(username);
@@ -46,7 +46,12 @@ export const post: APIRoute = async function post({ request }) {
 
     if (!hasError) {
       const verifiedAt = new Date().toISOString();
-      await collection.insertOne({ username, pubkey, verifiedAt });
+      await collection.insertOne({
+        username,
+        pubkey,
+        lightningAddress,
+        verifiedAt,
+      });
     }
 
     client.close();
