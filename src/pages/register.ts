@@ -45,12 +45,12 @@ export const post: APIRoute = async function post({ request }) {
     }
 
     if (!hasError) {
-      const createdAt = new Date().toISOString();
+      const registeredAt = new Date().toISOString();
       await collection.insertOne({
         username,
         pubkey,
         lightningAddress,
-        createdAt,
+        registeredAt,
       });
     }
 
