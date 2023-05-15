@@ -10,4 +10,4 @@ export interface Props {
 const { disabled, host } = Astro.props
 ---
 {disabled && <RegistrationDisabled />}
-<RegistrationForm disabled={disabled} host={host} client:load />
+<RegistrationForm disabled={disabled} host={host} client:only />

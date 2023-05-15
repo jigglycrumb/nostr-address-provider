@@ -1,6 +1,10 @@
+import { nip19 } from "nostr-tools";
 import { ChangeEvent, useEffect, useState } from "react";
+
 import { loadUsers } from "../../utils";
 import { Toggle } from "../Toggle";
+
+import { ExtensionDetected } from "./ExtensionDetected";
 import { RegistrationSuccess } from "./RegistrationSuccess";
 
 type RegistrationFormProps = {
@@ -9,6 +13,17 @@ type RegistrationFormProps = {
 };
 
 type UserDict = Record<string, string>;
+
+const isNpub = (value: string) => value.startsWith("npub");
+
+const convertNpubToHex = (npub: string) => {
+  try {
+    const hexKeyObj = nip19.decode(npub);
+    return hexKeyObj.data as string;
+  } catch (error) {
+    return false;
+  }
+};
 
 const submitForm = async (
   username: string,
@@ -30,7 +45,10 @@ const submitForm = async (
 export const RegistrationForm = ({ disabled, host }: RegistrationFormProps) => {
   const [users, setUsers] = useState<boolean | UserDict>(false);
   const [username, setUsername] = useState("");
+
   const [pubkey, setPubkey] = useState("");
+  const [pubkeyHex, setPubkeyHex] = useState("");
+
   const [lightningAddress, setLightningAddress] = useState("");
   const [lightningAddressVisible, setLightningAddressVisible] = useState(false);
 
@@ -38,6 +56,11 @@ export const RegistrationForm = ({ disabled, host }: RegistrationFormProps) => {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [submittedUsername, setSubmittedUsername] = useState("");
 
+  const [extensionBoxVisible, setExtensionBoxVisible] = useState(
+    !!window.nostr
+  );
+
+  // initially load users
   useEffect(() => {
     loadUsers().then((users) => {
       setUsers(users);
@@ -46,7 +69,7 @@ export const RegistrationForm = ({ disabled, host }: RegistrationFormProps) => {
 
   const formDisabled = !users || disabled;
   const hasUsername = username.length > 0;
-  const hasPubkey = pubkey.length > 0;
+  const hasPubkey = pubkeyHex.length > 0;
 
   const showFormResult = !!formError || !!formSubmitted;
 
@@ -72,16 +95,34 @@ export const RegistrationForm = ({ disabled, host }: RegistrationFormProps) => {
       return false;
     }
 
-    const pubkeyFormat = /^[0-9a-f]{1,64}$/g;
-    const isPubkeyValid = pubkeyFormat.test(pubkey);
+    const pubkeyFormatNpub = /^npub[0-3][qpzry9x8gf2tvdw0s3jn54khce6mua7l]+/;
+    const pubkeyFormatHex = /^[0-9a-f]{64}$/g;
 
-    if (!isPubkeyValid) {
-      return "Please enter the HEX version of your public key.";
-    } else if (pubkey.length !== 64) {
-      return "Your public key should be 64 characters long.";
-    } else if (Object.values(users).includes(pubkey)) {
-      return "Sorry, this pubkey is already taken.";
+    if (isNpub(pubkey)) {
+      const isPubkeyValidNpub = pubkeyFormatNpub.test(pubkey);
+
+      if (!isPubkeyValidNpub) {
+        return "Invalid npub public key.";
+      } else {
+        const hexKey = convertNpubToHex(pubkey);
+
+        if (!hexKey) {
+          return "Invalid npub public key.";
+        } else if (Object.values(users).includes(hexKey)) {
+          return "Sorry, this pubkey is already taken.";
+        }
+
+        return false;
+      }
     } else {
+      const isPubkeyValidHex = pubkeyFormatHex.test(pubkey);
+
+      if (!isPubkeyValidHex) {
+        return "Invalid public key.";
+      } else if (Object.values(users).includes(pubkey)) {
+        return "Sorry, this pubkey is already taken.";
+      }
+
       return false;
     }
   };
@@ -90,6 +131,7 @@ export const RegistrationForm = ({ disabled, host }: RegistrationFormProps) => {
     field: "username" | "pubkey" | "lightningAddress",
     event: ChangeEvent<HTMLInputElement>
   ) => {
+    // sanitize input
     const inputValue = event.target.value.toLowerCase();
 
     // update values
@@ -114,6 +156,20 @@ export const RegistrationForm = ({ disabled, host }: RegistrationFormProps) => {
       setFormError(pubkeyError);
       return;
     }
+    // if there is no error, we set the pubkeyHex
+    else {
+      if (isNpub(inputValue)) {
+        try {
+          const hexKeyObj = nip19.decode(pubkey);
+          const hexKey = hexKeyObj.data as string;
+          setPubkeyHex(hexKey);
+        } catch (error) {
+          setFormError("Invalid npub public key.");
+        }
+      } else {
+        setPubkeyHex(inputValue);
+      }
+    }
 
     // hide error message if everything looks good
     setFormError(false);
@@ -121,7 +177,7 @@ export const RegistrationForm = ({ disabled, host }: RegistrationFormProps) => {
 
   const handleRegistration = () => {
     if (hasUsername && hasPubkey) {
-      submitForm(username, pubkey, lightningAddress).then((response) => {
+      submitForm(username, pubkeyHex, lightningAddress).then((response) => {
         if (response.success) {
           setSubmittedUsername(username);
           setUsername("");
@@ -135,11 +191,25 @@ export const RegistrationForm = ({ disabled, host }: RegistrationFormProps) => {
 
   return (
     <>
+      {extensionBoxVisible && (
+        <ExtensionDetected
+          onAccept={() => {
+            window.nostr.getPublicKey().then((hexKey: string) => {
+              setPubkey(hexKey);
+              setPubkeyHex(hexKey);
+              setExtensionBoxVisible(false);
+            });
+          }}
+          onReject={() => {
+            setExtensionBoxVisible(false);
+          }}
+        />
+      )}
       <form className="box registration-form">
         <div>
           <input
             type="text"
-            placeholder="your public key in HEX format*"
+            placeholder="public key"
             maxLength={64}
             disabled={formDisabled || formSubmitted}
             value={pubkey}
@@ -150,7 +220,7 @@ export const RegistrationForm = ({ disabled, host }: RegistrationFormProps) => {
         <div className="address">
           <input
             type="text"
-            placeholder="your-name"
+            placeholder="username"
             maxLength={64}
             disabled={formDisabled || formSubmitted}
             value={username}
