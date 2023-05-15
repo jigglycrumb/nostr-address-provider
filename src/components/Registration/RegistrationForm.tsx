@@ -3,6 +3,8 @@ import { ChangeEvent, useEffect, useState } from "react";
 
 import { loadUsers } from "../../utils";
 import { Toggle } from "../Toggle";
+
+import { ExtensionDetected } from "./ExtensionDetected";
 import { RegistrationSuccess } from "./RegistrationSuccess";
 
 type RegistrationFormProps = {
@@ -11,24 +13,6 @@ type RegistrationFormProps = {
 };
 
 type UserDict = Record<string, string>;
-
-const ExtensionDetected = ({
-  onAccept,
-  onReject,
-}: {
-  onAccept: VoidFunction;
-  onReject: VoidFunction;
-}) => {
-  return (
-    <div className="box nip07-extension">
-      Compatible extension detected. Fill in public key?
-      <button onClick={onAccept}>Yes</button>
-      <button className="secondary" onClick={onReject}>
-        No
-      </button>
-    </div>
-  );
-};
 
 const isNpub = (value: string) => value.startsWith("npub");
 
