@@ -30,7 +30,9 @@
 
   // initially check checkbox
   const userPrefersDarkMode = window.matchMedia("(prefers-color-scheme:dark)").matches;
-  const isDarkMode = localStorage.getItem('darkMode') === "true" || userPrefersDarkMode
+  const isDarkMode = localStorage.getItem('darkMode') !== null
+          ? localStorage.getItem('darkMode') === "true"
+          : userPrefersDarkMode
   toggle.checked = !isDarkMode
 
   // initiall update body
