@@ -49,6 +49,7 @@ const { title } = Astro.props;
     padding: 0.5rem;
     border-radius: 0.5rem;
     border: 1px solid rgba(var(--accent), 25%);
+    background: #F6F6F6;
   }
 
   input[disabled] {
@@ -71,6 +72,12 @@ const { title } = Astro.props;
     text-transform: uppercase;
     padding: 0.5rem;
     cursor: pointer;
+  }
+
+  button.secondary {
+    background: #F6F6F6;
+    border: 1px solid rgba(var(--accent), 25%);
+    color: rgb(var(--accent));
   }
 
   button[disabled] {
@@ -124,9 +131,20 @@ const { title } = Astro.props;
     width: 100%;
   }
 
+  .nip07-extension {
+    align-items: center;
+    display: grid;
+    grid-template-columns: auto min-content min-content;
+    gap: 1ch;
+  }
+
+  .nip07-extension button {
+    min-width: 9ch;
+  }
+
   .registration-result {
     grid-row-gap: 0;
-    margin: 1rem 0;
+    margin: 1rem 0 0 0;
   }
 
   .registration-success p {
@@ -134,7 +152,7 @@ const { title } = Astro.props;
   }
 
   .user-count {
-    margin-top: 3rem;
+    margin-top: 2rem;
   }
 
   .copy-wrapper {
@@ -255,5 +273,4 @@ const { title } = Astro.props;
   .toggle label:active:after {
     width: 32px;
   }
-
 </style>
