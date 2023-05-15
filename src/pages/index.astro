@@ -2,7 +2,6 @@
 import Layout from '../layouts/Layout.astro';
 import DarkModeToggle from '../components/DarkModeToggle.astro';
 import Donation from '../components/Donation.astro';
-import KeyHint from '../components/KeyHint.astro'
 import { UserCount } from '../components/UserCount.tsx';
 import Registration from '../components/Registration/Registration.astro';
 import Welcome from '../components/Welcome.astro';
@@ -26,7 +25,6 @@ const {
     </div>
 		<Welcome host={host} slogan={slogan} />
 		<Registration disabled={registrationDisabled} host={host} />
-		<KeyHint />
 		<UserCount client:load />
 		<Donation lnUrl={donationLNUrl} costsMonthly={costsMonthly} />
 		<Footer />
