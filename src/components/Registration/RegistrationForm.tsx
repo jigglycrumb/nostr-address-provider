@@ -12,6 +12,24 @@ type RegistrationFormProps = {
 
 type UserDict = Record<string, string>;
 
+const ExtensionDetected = ({
+  onAccept,
+  onReject,
+}: {
+  onAccept: VoidFunction;
+  onReject: VoidFunction;
+}) => {
+  return (
+    <div className="box nip07-extension">
+      Compatible extension detected. Fill in public key?
+      <button onClick={onAccept}>Yes</button>
+      <button className="secondary" onClick={onReject}>
+        No
+      </button>
+    </div>
+  );
+};
+
 const isNpub = (value: string) => value.startsWith("npub");
 
 const convertNpubToHex = (npub: string) => {
@@ -54,6 +72,11 @@ export const RegistrationForm = ({ disabled, host }: RegistrationFormProps) => {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [submittedUsername, setSubmittedUsername] = useState("");
 
+  const [extensionBoxVisible, setExtensionBoxVisible] = useState(
+    !!window.nostr
+  );
+
+  // initially load users
   useEffect(() => {
     loadUsers().then((users) => {
       setUsers(users);
@@ -184,6 +207,20 @@ export const RegistrationForm = ({ disabled, host }: RegistrationFormProps) => {
 
   return (
     <>
+      {extensionBoxVisible && (
+        <ExtensionDetected
+          onAccept={() => {
+            window.nostr.getPublicKey().then((hexKey: string) => {
+              setPubkey(hexKey);
+              setPubkeyHex(hexKey);
+              setExtensionBoxVisible(false);
+            });
+          }}
+          onReject={() => {
+            setExtensionBoxVisible(false);
+          }}
+        />
+      )}
       <form className="box registration-form">
         <div>
           <input
