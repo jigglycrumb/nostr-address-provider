@@ -1,6 +1,6 @@
 body.dark-mode {
   background-color: #111111;
-  color: #bbbbbb;
+  color: #dddddd;
 }
 
 body.dark-mode .dark-mode-toggle label {
@@ -30,4 +30,12 @@ body.dark-mode .toggle label:after {
 
 body.dark-mode .toggle input:checked+label {
   background: #5c7800;
+}
+
+body.dark-mode button {
+  color: #dddddd;
+}
+
+body.dark-mode button.secondary {
+  background: #444444;
 }
