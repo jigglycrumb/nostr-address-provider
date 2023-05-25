@@ -14,6 +14,8 @@ type RegistrationFormProps = {
 
 type UserDict = Record<string, string>;
 
+const REGISTER_API_URL = "/api/register";
+
 const isNpub = (value: string) => value.startsWith("npub");
 
 const convertNpubToHex = (npub: string) => {
@@ -37,7 +39,7 @@ const submitForm = async (
     },
     body: JSON.stringify({ username, pubkey, lightningAddress }),
   };
-  const response = await fetch("/register", options);
+  const response = await fetch(REGISTER_API_URL, options);
   const json = await response.json();
   return json;
 };

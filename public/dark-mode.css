@@ -13,7 +13,7 @@
 
 .dark-mode input {
   background-color: #444444;
-  color: #ffffff;
+  color: #dddddd;
 }
 
 .dark-mode input::placeholder {
@@ -25,11 +25,11 @@
 }
 
 .dark-mode .toggle label:after {
-  background-color: #bbbbbb;
+  background-color: #dddddd;
 }
 
 .dark-mode .toggle input:checked+label {
-  background: #5c7800;
+  background: #8da739;
 }
 
 .dark-mode button {

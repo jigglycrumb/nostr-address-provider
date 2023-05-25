@@ -1,7 +1,7 @@
 import type { APIRoute } from "astro";
 import { MongoClient } from "mongodb";
 
-import config from "../../site.config";
+import config from "../../../site.config";
 
 // Connection URL
 const dbUrl = import.meta.env.MONGODB_URI;
