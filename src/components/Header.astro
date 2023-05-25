@@ -9,7 +9,7 @@ const { host, slogan } = Astro.props
 
 <header>
   <div>
-    <h1>Welcome to <div class="text-gradient">{host}</div></h1>
+    <h1><div class="text-gradient">{host}</div></h1>
 
     {slogan && (
 			<h3 class="text-gradient">
@@ -23,17 +23,17 @@ const { host, slogan } = Astro.props
 
 <style>
 	:root {
-		--badge-size: 112px;
+		--logo-size: 112px;
 	}
 
   header {
     display: grid;
-    grid-template-columns: 1fr var(--badge-size);
+    grid-template-columns: 1fr var(--logo-size);
 		margin-bottom: 2rem;
   }
 
 	h1 {
-		font-size: 3rem;
+		font-size: 4rem;
 		font-weight: 800;
 		margin: 0;
 	}
@@ -43,7 +43,7 @@ const { host, slogan } = Astro.props
 	}
 
   img {
-    max-width: var(--badge-size);
+    max-width: var(--logo-size);
   }
 
 	.text-gradient {
