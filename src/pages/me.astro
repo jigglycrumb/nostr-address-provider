@@ -1,0 +1,14 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { LoginButton } from '../components/LoginButton.tsx';
+
+import config from '../../site.config'
+
+const {
+	host,
+} = config
+---
+
+<Layout title={host}>
+	<LoginButton client:only />
+</Layout>

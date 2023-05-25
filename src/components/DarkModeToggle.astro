@@ -6,13 +6,13 @@
 </div>
 
 <script>
-  const updateBody = (darkMode: boolean) => {
-    const body = document.body
+  const updateRoot = (darkMode: boolean) => {
+    const root = document.documentElement
     if(darkMode) {
-      body.classList.add('dark-mode')
+      root.classList.add('dark-mode')
     }
     else {
-      body.classList.remove('dark-mode')
+      root.classList.remove('dark-mode')
     }
   }
 
@@ -24,8 +24,8 @@
     const isDarkMode = !event?.target?.checked ?? true
     localStorage.setItem('darkMode', isDarkMode)
 
-    // update body class
-    updateBody(isDarkMode)
+    // update root class
+    updateRoot(isDarkMode)
   })
 
   // initially check checkbox
@@ -35,8 +35,8 @@
           : userPrefersDarkMode
   toggle.checked = !isDarkMode
 
-  // initiall update body
-  updateBody(isDarkMode)
+  // initially update root
+  updateRoot(isDarkMode)
 </script>
 
 <style>

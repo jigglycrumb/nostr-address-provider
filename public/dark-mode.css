@@ -1,41 +1,41 @@
-body.dark-mode {
+.dark-mode {
   background-color: #111111;
   color: #dddddd;
 }
 
-body.dark-mode .dark-mode-toggle label {
+.dark-mode .dark-mode-toggle label {
   background-color: #333333;
 }
 
-body.dark-mode .box {
+.dark-mode .box {
   background-color: #333333;
 }
 
-body.dark-mode input {
+.dark-mode input {
   background-color: #444444;
   color: #ffffff;
 }
 
-body.dark-mode input::placeholder {
+.dark-mode input::placeholder {
   color: #aaaaaa;
 }
 
-body.dark-mode .toggle label {
+.dark-mode .toggle label {
   background-color: #444444;
 }
 
-body.dark-mode .toggle label:after {
+.dark-mode .toggle label:after {
   background-color: #bbbbbb;
 }
 
-body.dark-mode .toggle input:checked+label {
+.dark-mode .toggle input:checked+label {
   background: #5c7800;
 }
 
-body.dark-mode button {
+.dark-mode button {
   color: #dddddd;
 }
 
-body.dark-mode button.secondary {
+.dark-mode button.secondary {
   background: #444444;
 }

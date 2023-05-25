@@ -1,0 +1,26 @@
+---
+import DarkModeToggle from '../components/DarkModeToggle.astro';
+---
+
+<nav>
+  <a href="/">Home</a>
+  <a href="/me">Login</a>
+  <div class="dark-mode-toggle-container">
+    <DarkModeToggle />
+  </div>
+</nav>
+
+<style>
+  nav {
+    align-items: center;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(3, max-content);
+    justify-content: end;
+    margin-bottom: 3rem;
+  }
+
+  .dark-mode-toggle-container {
+    height: 25px;
+  }
+</style>
