@@ -35,7 +35,7 @@ You will still need a domain name if you want to offer this service on a TLD, th
 
 ### Final touches
 
-1. Edit `site.config.ts` and set your domain, monthly costs and donation LNURL
+1. Edit `site.config.ts` and set your domain, slogan and donation LNURL
 2. Commit & push
 3. Watch Vercel doing magic (don't blink, they are fast)
 4. Enjoy your new nostr address service

@@ -8,7 +8,6 @@ import config from '../../site.config'
 
 const {
 	host,
-	costsMonthly,
 	donationLNUrl,
 	registrationDisabled,
 } = config
@@ -17,5 +16,5 @@ const {
 <Layout title={host}>
 	<Registration disabled={registrationDisabled} host={host} />
 	<UserCount client:load />
-	<Donation lnUrl={donationLNUrl} costsMonthly={costsMonthly} />
+	<Donation lnUrl={donationLNUrl} />
 </Layout>

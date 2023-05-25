@@ -3,18 +3,16 @@ import { CopyWrapper } from './CopyWrapper.tsx'
 import { AstroQRCode } from './AstroQRCode.tsx';
 export interface Props {
 	lnUrl: string;
-  costsMonthly: string;
 }
 
-const { lnUrl, costsMonthly } = Astro.props
+const { lnUrl } = Astro.props
 ---
 
 <section class="donation">
   <p>
-    This service is free, but it takes some time and costs {costsMonthly}/month to operate.
-  </p>
-  <p>
-    If you like this service, please consider a small lightning ⚡ donation to keep it up:
+    This service is free, but operating it costs a bit of money and time.
+    <br />
+    If you like it, please consider a small lightning ⚡ donation to keep it alive.
   </p>
 
   <AstroQRCode lnUrl={lnUrl} client:only />
@@ -40,18 +38,17 @@ const { lnUrl, costsMonthly } = Astro.props
     display: block;
     margin-top: 2rem;
     padding-top: 1rem;
+    text-align: center;
   }
 
   .or {
     margin: 1rem 0;
-    text-align: center;
   }
 
   code {
     display: block;
     font-size: 0.75em;
     overflow: hidden;
-    text-align: center;
     text-overflow: ellipsis;
   }
 </style>
