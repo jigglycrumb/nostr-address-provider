@@ -248,7 +248,7 @@ export const RegistrationForm = ({ disabled, host }: RegistrationFormProps) => {
               <small>
                 Enter your existing lightning address to enable redirection.{" "}
                 <br />
-                You can then use you nostr address as your lightning address.
+                You can then use your nostr address as your lightning address.
               </small>
             </div>
             <div>
