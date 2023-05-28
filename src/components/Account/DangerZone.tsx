@@ -34,7 +34,7 @@ export const DangerZone = ({ username }: { username: string }) => {
 
   const handleDelete = async () => {
     if (checkDeletionConfirmed(deleteInputValue)) {
-      const signedEvent = await signEvent();
+      const signedEvent = await signEvent("Delete my account");
 
       if (signedEvent) {
         const userUpdateResponse = await deleteUser(signedEvent);
@@ -82,6 +82,7 @@ export const DangerZone = ({ username }: { username: string }) => {
                 type="text"
                 value={deleteInputValue}
                 onChange={(event) => checkDeletionConfirmed(event.target.value)}
+                autoFocus
               />
               <button
                 className="delete"

@@ -1,4 +1,6 @@
 import type { Event as NostrEvent } from "nostr-tools";
+import { useState } from "react";
+
 import { signEvent } from "../../utils";
 
 export type UserData = {
@@ -33,19 +35,39 @@ const loginUser = async (signedEvent: NostrEvent) => {
 };
 
 export const LoginForm = ({ onLogin }: LoginFormProps) => {
+  const [loginFailed, setLoginFailed] = useState(false);
+
   const handleClick = async () => {
-    const signedEvent = await signEvent();
+    const signedEvent = await signEvent("Login");
     if (signedEvent) {
-      const userDataResponse = await loginUser(signedEvent);
-      onLogin(userDataResponse);
+      const loginResponse = await loginUser(signedEvent);
+
+      if (loginResponse.success === true) {
+        onLogin(loginResponse);
+      } else {
+        setLoginFailed(true);
+      }
     }
   };
 
   return (
-    <section className="box">
-      <strong>Welcome back, nostrich!</strong>
-      <p>Login with a NIP-07 compatible browser extension.</p>
-      <button onClick={handleClick}>Login</button>
-    </section>
+    <>
+      <section className="box">
+        <strong>Welcome back, nostrich!</strong>
+        <p>Login with a NIP-07 compatible browser extension.</p>
+        <button onClick={handleClick}>Login</button>
+      </section>
+
+      {loginFailed && (
+        <section className="box login-error">
+          <div className="error">
+            Login failed! No user with your pubkey found.
+          </div>
+          <div>
+            Do you want to <a href="/">register</a>?
+          </div>
+        </section>
+      )}
+    </>
   );
 };

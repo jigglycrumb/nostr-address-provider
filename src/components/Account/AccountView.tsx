@@ -87,23 +87,20 @@ export const AccountView = ({ host }: AccountViewProps) => {
     message?: string;
     data: UserData;
   }) => {
-    const { success, message, data } = response;
+    const {
+      data: { pubkey, username, registeredAt, lightningAddress },
+    } = response;
 
-    if (success) {
-      setPubkey(data.pubkey);
-      setUsername(data.username);
-      setRegisteredUsername(data.username);
-      setRegisteredAt(data.registeredAt);
+    setPubkey(pubkey);
+    setUsername(username);
+    setRegisteredUsername(username);
+    setRegisteredAt(registeredAt);
 
-      if (data.lightningAddress) {
-        setLightningAddress(data.lightningAddress);
-      }
-
-      setIsAuthed(true);
-    } else {
-      // TODO show "user not found" in UI
-      console.log("login failed", message);
+    if (lightningAddress) {
+      setLightningAddress(lightningAddress);
     }
+
+    setIsAuthed(true);
   };
 
   const handleSave = async () => {
@@ -133,7 +130,7 @@ export const AccountView = ({ host }: AccountViewProps) => {
     <>
       <form className="box user-form">
         <div className="user-form-header">
-          <strong>Hello, {registedUsername}!</strong>
+          <strong>Hello {registedUsername}!</strong>
 
           <p>
             <small>

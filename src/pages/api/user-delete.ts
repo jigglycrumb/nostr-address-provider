@@ -27,14 +27,16 @@ export const post: APIRoute = async function post({ request }) {
       const db = client.db(dbName);
       const collection = db.collection(dbCollection);
 
-      const user = await collection.findOne({ pubkey });
+      const user = await collection.findOneAndDelete({ pubkey });
+
+      console.log("deleted user", user);
+
       client.close();
 
-      if (user) {
+      if (user.ok === 1) {
         return new Response(
           JSON.stringify({
             success: true,
-            data: user,
           }),
           {
             status: 200,
