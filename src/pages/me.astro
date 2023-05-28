@@ -1,6 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { LoginButton } from '../components/LoginButton.tsx';
+import { AccountView } from '../components/Account/AccountView.tsx';
 
 import config from '../../site.config'
 
@@ -10,5 +10,5 @@ const {
 ---
 
 <Layout title={host}>
-	<LoginButton client:only />
+  <AccountView host={host} client:only />
 </Layout>

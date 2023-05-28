@@ -1,8 +1,9 @@
 import { nip19 } from "nostr-tools";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useState } from "react";
 
-import { loadUsers } from "../../utils";
+import { useRegisteredUsers } from "../../hooks";
 import { Toggle } from "../Toggle";
+import { checkUsername } from "../../utils";
 
 import { ExtensionDetected } from "./ExtensionDetected";
 import { RegistrationSuccess } from "./RegistrationSuccess";
@@ -12,9 +13,7 @@ type RegistrationFormProps = {
   host: string;
 };
 
-type UserDict = Record<string, string>;
-
-const REGISTER_API_URL = "/api/register";
+const REGISTER_API_URL = "/api/user-create";
 
 const isNpub = (value: string) => value.startsWith("npub");
 
@@ -45,14 +44,15 @@ const submitForm = async (
 };
 
 export const RegistrationForm = ({ disabled, host }: RegistrationFormProps) => {
-  const [users, setUsers] = useState<boolean | UserDict>(false);
+  const users = useRegisteredUsers();
+
   const [username, setUsername] = useState("");
 
   const [pubkey, setPubkey] = useState("");
   const [pubkeyHex, setPubkeyHex] = useState("");
 
   const [lightningAddress, setLightningAddress] = useState("");
-  const [lightningAddressVisible, setLightningAddressVisible] = useState(false);
+  const [lightningAddressEnabled, setLightningAddressEnabled] = useState(false);
 
   const [formError, setFormError] = useState<boolean | string>(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
@@ -62,37 +62,15 @@ export const RegistrationForm = ({ disabled, host }: RegistrationFormProps) => {
     !!window.nostr
   );
 
-  // initially load users
-  useEffect(() => {
-    loadUsers().then((users) => {
-      setUsers(users);
-    });
-  }, []);
-
   const formDisabled = !users || disabled;
   const hasUsername = username.length > 0;
   const hasPubkey = pubkeyHex.length > 0;
 
   const showFormResult = !!formError || !!formSubmitted;
 
-  const checkUsername = (username: string) => {
-    if (username.length === 0) {
-      return false;
-    }
-
-    const usernameFormat = /^[0-9a-z-_\.]{1,64}$/g;
-    const isUsernameValid = usernameFormat.test(username);
-
-    if (!isUsernameValid) {
-      return "The username can only contain lowercase letters, numbers, _, - and .";
-    } else if ((users as UserDict)[username]) {
-      return "Sorry, this username is already taken.";
-    } else {
-      return false;
-    }
-  };
-
   const checkPubkey = (pubkey: string) => {
+    if (!users) return "Users not loaded";
+
     if (pubkey.length === 0) {
       return false;
     }
@@ -145,7 +123,8 @@ export const RegistrationForm = ({ disabled, host }: RegistrationFormProps) => {
 
     // check username
     const usernameError = checkUsername(
-      field === "username" ? inputValue : username
+      field === "username" ? inputValue : username,
+      users
     );
     if (usernameError) {
       setFormError(usernameError);
@@ -200,18 +179,24 @@ export const RegistrationForm = ({ disabled, host }: RegistrationFormProps) => {
               setPubkey(hexKey);
               setPubkeyHex(hexKey);
               setExtensionBoxVisible(false);
+
+              const pubkeyError = checkPubkey(hexKey);
+              if (pubkeyError) {
+                setFormError(pubkeyError);
+              }
             });
           }}
           onReject={() => {
             setExtensionBoxVisible(false);
           }}
+          disabled={formDisabled || formSubmitted}
         />
       )}
-      <form className="box registration-form">
+      <form className="box user-form">
         <div>
           <input
             type="text"
-            placeholder="public key"
+            placeholder={!users ? "loading…" : "public key"}
             maxLength={64}
             disabled={formDisabled || formSubmitted}
             value={pubkey}
@@ -222,7 +207,7 @@ export const RegistrationForm = ({ disabled, host }: RegistrationFormProps) => {
         <div className="address">
           <input
             type="text"
-            placeholder="username"
+            placeholder={!users ? "loading…" : "username"}
             maxLength={64}
             disabled={formDisabled || formSubmitted}
             value={username}
@@ -237,26 +222,31 @@ export const RegistrationForm = ({ disabled, host }: RegistrationFormProps) => {
           <Toggle
             id="lightning-address-redirect"
             label="use as lightning address"
-            isOn={lightningAddressVisible}
+            isOn={lightningAddressEnabled}
             onChange={(event) =>
-              setLightningAddressVisible(event.target.checked)
+              setLightningAddressEnabled(event.target.checked)
             }
           />
         </div>
 
-        {lightningAddressVisible && (
+        {lightningAddressEnabled && (
           <>
             <div>
               <small>
-                Enter your existing lightning address to enable redirection.{" "}
-                <br />
-                You can then use your nostr address as your lightning address.
+                <div>
+                  Enter your existing lightning address to enable redirection.
+                </div>
+                <div>
+                  You can then use your nostr address as your lightning address.
+                </div>
               </small>
             </div>
             <div>
               <input
                 type="text"
-                placeholder="janedoe69@walletofsatoshi.com"
+                placeholder={
+                  !users ? "loading…" : "janedoe69@walletofsatoshi.com"
+                }
                 maxLength={64}
                 disabled={formDisabled || formSubmitted}
                 value={lightningAddress}

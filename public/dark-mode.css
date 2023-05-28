@@ -11,6 +11,10 @@
   background-color: #333333;
 }
 
+.dark-mode small, .dark-mode .muted {
+  color: #aaaaaa;
+}
+
 .dark-mode input {
   background-color: #444444;
   color: #dddddd;

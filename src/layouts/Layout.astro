@@ -41,12 +41,19 @@ const {
   :root {
     --accent: 124, 58, 237;
     --accent-gradient: linear-gradient(45deg, rgb(var(--accent)), #da62c4 30%, white 60%);
-    --text: #333333;
   }
   html {
     font-family: system-ui, sans-serif;
     background-color: #F6F6F6;
-    color: var(--text);
+    color: #333333;
+  }
+
+  small {
+    line-height: 130%;
+  }
+
+  small, .muted {
+    color: #999999;
   }
 
   body {
@@ -59,6 +66,7 @@ const {
     padding: 1.5rem;
     max-width: 60ch;
   }
+
 
   code, .copy-input {
     font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
@@ -85,7 +93,7 @@ const {
   }
 
   button {
-    width: calc(100% - 1rem);
+    /* width: calc(100% - 1rem); */
     background: var(--accent-gradient);
     background-size: 400%;
     background-position: 0%;
@@ -130,12 +138,12 @@ const {
     display: grid;
   }
 
-  .registration-form {
+  .user-form {
     grid-row-gap: 1rem;
     margin: 1rem 0;
   }
 
-  .registration-form .address {
+  .user-form .address {
     display: grid;
     grid-template-columns: 1fr min-content;
     grid-gap: 1ch;
@@ -143,16 +151,21 @@ const {
     margin-right: 1ch;
   }
 
-  .registration-form input[type="text"] {
+  .user-form input[type="text"] {
     width: calc(100% - 1.1rem);
   }
 
-  .registration-form input[type="checkbox"] {
+  .user-form input[type="checkbox"] {
     margin-left: 1rem;
   }
 
-  .registration-form button {
+  .user-form button {
     width: 100%;
+  }
+
+  .registered-since {
+    border-bottom: 1px solid rgb(var(--accent));
+    padding-bottom: 1rem;
   }
 
   .nip07-extension {
@@ -296,5 +309,51 @@ const {
 
   .toggle label:active:after {
     width: 32px;
+  }
+
+  .modal-wrapper {
+    background: rgba(0, 0, 0, 0.75);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .modal-wrapper > * {
+    max-width: 50ch;
+  }
+
+  .danger {
+    font-weight: bold;
+    color: #ff6666;
+  }
+
+  .modal-delete-account button.delete,
+  .danger-zone button {
+    background: #ff6666;
+    color: #ffffff;
+  }
+
+  .modal-delete-account button.delete {
+    margin-top: 1ch;
+  }
+
+  .modal-delete-account button.delete[disabled] {
+    background: #c22e2e;
+    color: #dddddd;
+  }
+
+  .modal-delete-account button.close {
+    justify-self: end;
+    width: 2.5ch;
+    padding: 0;
+  }
+
+  .user-update-result {
+    margin-bottom: 1rem;
   }
 </style>
