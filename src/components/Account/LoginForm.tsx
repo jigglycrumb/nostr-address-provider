@@ -1,4 +1,4 @@
-import type { Event } from "nostr-tools";
+import type { Event as NostrEvent } from "nostr-tools";
 import { signEvent } from "../../utils";
 
 export type UserData = {
@@ -19,7 +19,7 @@ type LoginFormProps = {
 
 const USER_READ_API_URL = "/api/user-read";
 
-const getUserData = async (signedEvent: Event) => {
+const loginUser = async (signedEvent: NostrEvent) => {
   const options = {
     method: "POST",
     headers: {
@@ -36,7 +36,7 @@ export const LoginForm = ({ onLogin }: LoginFormProps) => {
   const handleClick = async () => {
     const signedEvent = await signEvent();
     if (signedEvent) {
-      const userDataResponse = await getUserData(signedEvent);
+      const userDataResponse = await loginUser(signedEvent);
       onLogin(userDataResponse);
     }
   };

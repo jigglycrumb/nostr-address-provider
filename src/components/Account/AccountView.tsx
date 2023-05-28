@@ -1,5 +1,5 @@
 import { format } from "date-fns";
-import type { Event } from "nostr-tools";
+import type { Event as NostrEvent } from "nostr-tools";
 import { ChangeEvent, useState } from "react";
 
 import { useRegisteredUsers } from "../../hooks";
@@ -16,7 +16,7 @@ type AccountViewProps = {
 
 const USER_UPDATE_API_URL = "/api/user-update";
 
-const updateUserData = async (signedEvent: Event) => {
+const updateUser = async (signedEvent: NostrEvent) => {
   const options = {
     method: "POST",
     headers: {
@@ -112,7 +112,7 @@ export const AccountView = ({ host }: AccountViewProps) => {
       const signedEvent = await signEvent(eventContent);
 
       if (signedEvent) {
-        const userUpdateResponse = await updateUserData(signedEvent);
+        const userUpdateResponse = await updateUser(signedEvent);
 
         if (userUpdateResponse.success) {
           setFormSubmitted(true);
@@ -137,10 +137,13 @@ export const AccountView = ({ host }: AccountViewProps) => {
 
           <p>
             <small>
-              <span className="muted">{pubkey}</span>
+              <span>{pubkey}</span>
 
               {registeredAt && (
-                <span>Registered since {formatDate(registeredAt)}</span>
+                <>
+                  <br />
+                  <span>Registered since {formatDate(registeredAt)}</span>
+                </>
               )}
             </small>
           </p>

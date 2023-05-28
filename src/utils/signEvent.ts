@@ -13,5 +13,6 @@ export const signEvent = async (content = defaultContent) => {
     tags: [],
     content,
   };
+
   return await window.nostr.signEvent(nostrEvent);
 };
