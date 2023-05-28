@@ -5,10 +5,10 @@ import { ChangeEvent, useState } from "react";
 import { useRegisteredUsers } from "../../hooks";
 import { checkUsername, signEvent } from "../../utils";
 
+import { DangerZone } from "./DangerZone";
 import { ExtensionNotFound } from "./ExtensionNotFound";
 import { LoginForm } from "./LoginForm";
 import type { UserData } from "./LoginForm";
-import { createPortal } from "react-dom";
 
 type AccountViewProps = {
   host: string;
@@ -32,10 +32,6 @@ const updateUserData = async (signedEvent: Event) => {
 const formatDate = (dateString: string) => {
   const date = new Date(dateString);
   return format(date, "do 'of' MMMM',' yyyy");
-  // const year = date.getFullYear();
-  // const month = date.getMonth();
-  // const day = date.getDay();
-  // return `${year}-${month}-${day}`;
 };
 
 export const AccountView = ({ host }: AccountViewProps) => {
@@ -54,20 +50,9 @@ export const AccountView = ({ host }: AccountViewProps) => {
   const [formError, setFormError] = useState<boolean | string>(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
 
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
-
   const hasUsername = username.length > 0;
 
   const showFormResult = !!formError || !!formSubmitted;
-
-  const [deleteButtonDisabled, setDeleteButtonDisabled] = useState(true);
-  const [deleteInputValue, setDeleteInputValue] = useState("");
-  const deletionConfirmText = `delete ${username}`;
-
-  const checkDeletionConfirmed = (input: string) => {
-    setDeleteInputValue(input);
-    setDeleteButtonDisabled(input !== deletionConfirmText);
-  };
 
   const handleInput = (
     field: "username" | "pubkey" | "lightningAddress",
@@ -129,8 +114,6 @@ export const AccountView = ({ host }: AccountViewProps) => {
       if (signedEvent) {
         const userUpdateResponse = await updateUserData(signedEvent);
 
-        console.log({ userUpdateResponse });
-
         if (userUpdateResponse.success) {
           setFormSubmitted(true);
         }
@@ -149,17 +132,15 @@ export const AccountView = ({ host }: AccountViewProps) => {
   return (
     <>
       <form className="box user-form">
-        <div>
+        <div className="user-form-header">
           <strong>Hello, {registedUsername}!</strong>
 
           <p>
             <small>
-              <div className="muted">{pubkey}</div>
+              <span className="muted">{pubkey}</span>
 
               {registeredAt && (
-                <div className="registered-since">
-                  Registered since {formatDate(registeredAt)}
-                </div>
+                <span>Registered since {formatDate(registeredAt)}</span>
               )}
             </small>
           </p>
@@ -212,67 +193,14 @@ export const AccountView = ({ host }: AccountViewProps) => {
           </button>
         </div>
       </form>
-
       {showFormResult && (
         <div className="box user-update-result">
           {formError && <div className="error">{formError}</div>}
-          {formSubmitted && (
-            <div className="registration-success">
-              <p>
-                <strong>Save successful!</strong>
-              </p>
-            </div>
-          )}
+          {formSubmitted && <strong>Save successful!</strong>}
         </div>
       )}
 
-      <section className="box danger-zone">
-        <div className="danger">DANGER ZONE</div>
-        <p>Delete my account and all associated data.</p>
-        <button onClick={() => setShowDeleteModal(true)}>DELETE</button>
-      </section>
-
-      {showDeleteModal &&
-        createPortal(
-          <div className="modal-wrapper">
-            <div className="box modal-delete-account">
-              <button
-                className="secondary close"
-                onClick={() => {
-                  setDeleteButtonDisabled(true);
-                  setDeleteInputValue("");
-                  setShowDeleteModal(false);
-                }}
-              >
-                &times;
-              </button>
-
-              <div className="danger">
-                Warning! You are about to delete your account.
-              </div>
-              <p>
-                When you proceed, all of your data will be deleted and you wil
-                be redirected to the home page.
-              </p>
-              <p>Type "{deletionConfirmText}" to proceed.</p>
-              <input
-                type="text"
-                value={deleteInputValue}
-                onChange={(event) => checkDeletionConfirmed(event.target.value)}
-              />
-              <button
-                className="delete"
-                disabled={deleteButtonDisabled}
-                onClick={() => {
-                  console.log("delete account");
-                }}
-              >
-                I understand, delete my account
-              </button>
-            </div>
-          </div>,
-          document.body
-        )}
+      <DangerZone username={registedUsername} />
     </>
   );
 };

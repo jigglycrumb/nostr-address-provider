@@ -43,3 +43,7 @@
 .dark-mode button.secondary {
   background: #444444;
 }
+
+.dark-mode .modal-wrapper {
+  background: rgba(0, 0, 0, 0.75);
+}

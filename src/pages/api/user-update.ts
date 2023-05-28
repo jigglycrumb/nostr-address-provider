@@ -43,15 +43,9 @@ export const post: APIRoute = async function post({ request }) {
       client.close();
 
       if (user.ok === 1) {
-        const updatedData = {
-          username: user.value?.username,
-          lightningAddress: user.value?.lightningAddress,
-        };
-
         return new Response(
           JSON.stringify({
             success: true,
-            data: updatedData,
           }),
           {
             status: 200,
