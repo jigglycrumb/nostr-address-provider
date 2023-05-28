@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { loadUsers } from "../utils";
+import { loadUsers } from "../../utils";
 
 const updateInterval = 30_000;
 

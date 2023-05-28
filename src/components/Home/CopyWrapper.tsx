@@ -1,7 +1,7 @@
 import { clsx } from "clsx";
 import { useEffect, useRef, useState } from "react";
 import { CSSTransition } from "react-transition-group";
-import { useCopyToClipboard } from "../hooks";
+import { useCopyToClipboard } from "../../hooks";
 
 type CopyWrapperProps = {
   className?: string;

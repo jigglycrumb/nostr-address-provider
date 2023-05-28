@@ -1,12 +1,12 @@
 import { nip19 } from "nostr-tools";
 import { ChangeEvent, useState } from "react";
 
-import { useRegisteredUsers } from "../../hooks";
-import { Toggle } from "../Toggle";
-import { checkUsername } from "../../utils";
+import { useRegisteredUsers } from "../../../hooks";
+import { checkUsername } from "../../../utils";
 
 import { ExtensionDetected } from "./ExtensionDetected";
 import { RegistrationSuccess } from "./RegistrationSuccess";
+import { Toggle } from "./Toggle";
 
 type RegistrationFormProps = {
   disabled: boolean;
