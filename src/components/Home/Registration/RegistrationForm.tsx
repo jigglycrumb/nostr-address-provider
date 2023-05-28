@@ -58,6 +58,8 @@ export const RegistrationForm = ({ disabled, host }: RegistrationFormProps) => {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [submittedUsername, setSubmittedUsername] = useState("");
 
+  // console.log({ username, pubkey, pubkeyHex });
+
   const [extensionBoxVisible, setExtensionBoxVisible] = useState(
     !!window.nostr
   );
@@ -121,34 +123,38 @@ export const RegistrationForm = ({ disabled, host }: RegistrationFormProps) => {
       setLightningAddress(inputValue);
     }
 
-    // check username
-    const usernameError = checkUsername(
-      field === "username" ? inputValue : username,
-      users
-    );
-    if (usernameError) {
-      setFormError(usernameError);
-      return;
+    if (field === "username") {
+      // check username
+      const usernameError = checkUsername(
+        field === "username" ? inputValue : username,
+        users
+      );
+      if (usernameError) {
+        setFormError(usernameError);
+        return;
+      }
     }
 
-    // check pubkey
-    const pubkeyError = checkPubkey(field === "pubkey" ? inputValue : pubkey);
-    if (pubkeyError) {
-      setFormError(pubkeyError);
-      return;
-    }
-    // if there is no error, we set the pubkeyHex
-    else {
-      if (isNpub(inputValue)) {
-        try {
-          const hexKeyObj = nip19.decode(pubkey);
-          const hexKey = hexKeyObj.data as string;
-          setPubkeyHex(hexKey);
-        } catch (error) {
-          setFormError("Invalid npub public key.");
+    if (field === "pubkey") {
+      // check pubkey
+      const pubkeyError = checkPubkey(inputValue);
+      if (pubkeyError) {
+        setFormError(pubkeyError);
+        return;
+      }
+      // if there is no error, we set the pubkeyHex
+      else {
+        if (isNpub(inputValue)) {
+          try {
+            const hexKeyObj = nip19.decode(pubkey);
+            const hexKey = hexKeyObj.data as string;
+            setPubkeyHex(hexKey);
+          } catch (error) {
+            setFormError("Invalid npub public key.");
+          }
+        } else {
+          setPubkeyHex(inputValue);
         }
-      } else {
-        setPubkeyHex(inputValue);
       }
     }
 
