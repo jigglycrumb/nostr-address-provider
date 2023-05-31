@@ -1,49 +1,49 @@
-.dark-mode {
+html.dark-mode {
   background-color: #111111;
   color: #dddddd;
 }
 
-.dark-mode .dark-mode-toggle label {
+html.dark-mode .dark-mode-toggle label {
   background-color: #333333;
 }
 
-.dark-mode .box {
+html.dark-mode .box {
   background-color: #333333;
 }
 
-.dark-mode small, .dark-mode .muted {
+html.dark-mode small, .dark-mode .muted {
   color: #aaaaaa;
 }
 
-.dark-mode input {
+html.dark-mode input {
   background-color: #444444;
   color: #dddddd;
 }
 
-.dark-mode input::placeholder {
+html.dark-mode input::placeholder {
   color: #aaaaaa;
 }
 
-.dark-mode .toggle label {
+html.dark-mode .toggle label {
   background-color: #444444;
 }
 
-.dark-mode .toggle label:after {
+html.dark-mode .toggle label:after {
   background-color: #dddddd;
 }
 
-.dark-mode .toggle input:checked+label {
+html.dark-mode .toggle input:checked+label {
   background: #8da739;
 }
 
-.dark-mode button {
+html.dark-mode button {
   color: #dddddd;
 }
 
-.dark-mode button.secondary {
+html.dark-mode button.secondary {
   background: #444444;
 }
 
-.dark-mode .modal-wrapper {
+html.dark-mode .modal-wrapper {
   background: rgba(0, 0, 0, 0.75);
 }
