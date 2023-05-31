@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import HomeView from '../components/Home/HomeView.astro'
+import { AccountView } from '../components/Account/AccountView.tsx';
+
 import config from '../../site.config'
 
 const {
@@ -9,5 +10,5 @@ const {
 ---
 
 <Layout title={host}>
-	<HomeView />
+  <AccountView host={host} client:only />
 </Layout>

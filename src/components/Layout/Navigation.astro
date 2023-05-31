@@ -1,0 +1,41 @@
+---
+import DarkModeToggle from './DarkModeToggle.astro';
+
+const links = [
+  { label: 'Home', url: "/" },
+  { label: 'Login', url: "/me" },
+]
+---
+
+<nav>
+  {links.map(link => (
+    <a class="nav-link text-gradient" href={link.url}>{link.label}</a>
+  ))}
+
+  <div class="dark-mode-toggle-container">
+    <DarkModeToggle />
+  </div>
+</nav>
+
+<script>
+  document.querySelector(`.nav-link[href="${document.location.pathname}"]`)?.classList.add('active')
+</script>
+
+<style>
+  nav {
+    align-items: center;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(3, max-content);
+    justify-content: end;
+    margin-bottom: 3rem;
+  }
+
+  nav a.active {
+    border-bottom: 1px solid rgba(var(--accent));
+  }
+
+  .dark-mode-toggle-container {
+    height: 25px;
+  }
+</style>
