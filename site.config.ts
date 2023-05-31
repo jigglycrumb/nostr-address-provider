@@ -8,9 +8,6 @@ export default {
   // site slogan
   slogan: "Free nostr addresses.",
 
-  // your monthly costs
-  costsMonthly: "$4 USD",
-
   // your donation LNURL
   donationLNUrl:
     "LNURL1DP68GURN8GHJ7MR9VAJKUEPWD3HXY6T5WVHXXMMD9AKXUATJD3CZ7JMPVDV9YCC4FVREX",
