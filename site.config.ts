@@ -6,11 +6,11 @@ export default {
   registrationDisabled: false,
 
   // site slogan
-  slogan: "Free nostr addresses.",
+  slogan: "Wyoming naming and asset registration services",
 
   // your donation LNURL
   donationLNUrl:
-    "LNURL1DP68GURN8GHJ7MR9VAJKUEPWD3HXY6T5WVHXXMMD9AKXUATJD3CZ7JMPVDV9YCC4FVREX",
+    "LNURL1DP68GURN8GHJ7MRW9E6XJURN9UH8WETVDSKKKMN0WAHZ7MRWW4EXCUP0XPURXCECX56RJWRPVV6RXVP3VVMRJRM2AHQ",
 
   // name of your MongoDB database
   dbName: "users",
