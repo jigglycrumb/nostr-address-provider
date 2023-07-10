@@ -6,7 +6,7 @@ export default {
   registrationDisabled: false,
 
   // site slogan
-  slogan: "Wyoming naming and asset registration services",
+  slogan: "Wyoming naming and asset registration services<br>A NIP-05 nostr address provider service",
 
   // your donation LNURL
   donationLNUrl:
