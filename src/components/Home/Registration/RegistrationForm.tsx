@@ -142,11 +142,12 @@ export const RegistrationForm = ({ disabled, host }: RegistrationFormProps) => {
         setFormError(pubkeyError);
         return;
       }
+
       // if there is no error, we set the pubkeyHex
       else {
         if (isNpub(inputValue)) {
           try {
-            const hexKeyObj = nip19.decode(pubkey);
+            const hexKeyObj = nip19.decode(inputValue);
             const hexKey = hexKeyObj.data as string;
             setPubkeyHex(hexKey);
           } catch (error) {
