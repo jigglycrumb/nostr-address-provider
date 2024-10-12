@@ -1,5 +1,5 @@
 {
-  "name": "nostr-verify",
+  "name": "nostr-address-provider",
   "type": "module",
   "version": "0.0.1",
   "private": true,

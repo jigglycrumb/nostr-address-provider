@@ -1,17 +1,15 @@
 ---
-import Donation from './Donation.astro';
-import Registration from './Registration/Registration.astro';
-import { UserCount } from './UserCount.tsx';
+import Donation from "./Donation.astro";
+import Registration from "./Registration/Registration.astro";
+import { UserCount } from "./UserCount.tsx";
 
-import config from '../../../site.config'
+import config from "../../../site.config";
 
-const {
-	host,
-	donationLNUrl,
-	registrationDisabled,
-} = config
+const { host, donationLNUrl, registrationDisabled } = config;
 ---
 
 <Registration disabled={registrationDisabled} host={host} />
 <UserCount client:load />
-<Donation lnUrl={donationLNUrl} />
+<!--
+  <Donation lnUrl={donationLNUrl} />
+-->

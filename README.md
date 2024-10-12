@@ -66,9 +66,3 @@ For more, check the Astro docs.
 
 - Copy to clipboard hook by [usehooks-ts.com](https://usehooks-ts.com/react-hook/use-copy-to-clipboard)
 - Copy icon by [online web fonts](http://www.onlinewebfonts.com), licensed by CC BY 3.0
-
-## Reaching out
-
-Questions, comments, complaints? Hit me up on nostr:
-
-    npub1g9k2rya223yt3n9p7zty9qrhvhxqac5evz0ewt0sv9x0hr4z72csd8sezh
