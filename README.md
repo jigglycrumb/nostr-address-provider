@@ -4,6 +4,12 @@ Web based [nostr](https://github.com/nostr-protocol/nostr) address ([NIP-05](htt
 
 Users can enter their exisiting lightning address when registering and then use their nostr address as lightning address.
 
+# NOTE
+
+This repository moved to Codeberg.
+
+New repo: https://codeberg.org/jiggly/nostr-address-provider
+
 ## Tech
 
 The project is a website built with [Astro](https://astro.build/).  
